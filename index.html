@@ -1,1 +1,261 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projekt Lublin</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--fg:#000;--mut:#5c5c5c;--line:#d9d9d9;--soft:#f3f3f3;color-scheme:light;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#fff;--mut:#a3a3a3;--line:#2b2b2b;--soft:#141414;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--fg:#fff;--mut:#a3a3a3;--line:#2b2b2b;--soft:#141414;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 "Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .35s,color .35s}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
 
+/* navbar */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);transition:background .35s}
+nav{display:flex;align-items:center;gap:6px;min-height:64px;flex-wrap:wrap;padding-block:8px}
+.logo{font-weight:700;text-decoration:none;margin-right:auto;font-size:19px;letter-spacing:-.02em}
+nav a.lnk{padding:8px 14px;text-decoration:none;border-radius:999px;color:var(--mut);transition:color .2s,background .2s}
+nav a.lnk:hover{color:var(--fg)}
+nav a.lnk[aria-current="page"]{color:var(--bg);background:var(--fg)}
+.discord{display:inline-flex;align-items:center;gap:8px;background:#5865f2;color:#fff;text-decoration:none;padding:9px 16px;border-radius:6px;font-weight:500;transition:transform .2s,background .2s}
+.discord:hover{background:#4752c4;transform:translateY(-2px)}
+.discord svg{width:20px;height:20px;fill:#fff}
+#theme{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;font-size:19px;display:grid;place-items:center;transition:transform .5s,border-color .2s}
+#theme:hover{border-color:var(--fg);transform:rotate(180deg)}
+
+/* hero – the one big moment */
+.hero{padding:clamp(56px,12vw,130px) 0 clamp(40px,8vw,80px);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:auto -10% -40% auto;width:60vw;height:60vw;max-width:640px;max-height:640px;border-radius:50%;
+  background:radial-gradient(circle,var(--soft) 0,transparent 70%);animation:drift 14s ease-in-out infinite alternate;z-index:-1}
+@keyframes drift{to{transform:translate(-12vw,-6vw) scale(1.25)}}
+h1{margin:0;font-size:clamp(52px,14.5vw,168px);line-height:.92;letter-spacing:-.055em;font-weight:700}
+h1 .w{display:block;overflow:hidden;padding-bottom:.06em}
+h1 .c{display:inline-block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*55ms)}
+h1 .w:nth-child(2) .c{-webkit-text-stroke:0}
+@keyframes up{to{transform:none}}
+.sub{margin:28px 0 0;color:var(--mut);max-width:44ch;opacity:0;animation:fade 1s .9s forwards}
+@keyframes fade{to{opacity:1}}
+
+h2{font-size:clamp(30px,5vw,48px);letter-spacing:-.03em;line-height:1.05;margin:0 0 8px}
+.page{padding:clamp(36px,6vw,64px) 0 90px}
+.lead{color:var(--mut);margin:0 0 36px}
+[data-view]{display:none}
+[data-view].on{display:block;animation:fade .45s forwards;opacity:0}
+
+/* entries */
+.entry{display:grid;grid-template-columns:170px 1fr;gap:12px 32px;padding:30px 0;border-top:1px solid var(--line)}
+.entry:last-of-type{border-bottom:1px solid var(--line)}
+.entry time{color:var(--mut);font-size:15px;padding-top:6px}
+.entry h3{margin:0 0 8px;font-size:26px;letter-spacing:-.02em;line-height:1.2}
+.entry p{margin:0;max-width:62ch;color:var(--mut)}
+.entry.new{animation:in .5s both;animation-delay:calc(var(--i)*70ms)}
+@keyframes in{from{opacity:0;transform:translateX(-14px)}}
+.pager{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap}
+.pager button{min-width:44px;height:44px;padding:0 14px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:8px;font:inherit;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.pager button:hover:not(:disabled){border-color:var(--fg)}
+.pager button[aria-current="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.pager button:disabled{opacity:.35;cursor:default}
+
+/* info */
+.map{width:100%;aspect-ratio:16/9;min-height:280px;border:1px solid var(--line);border-radius:10px;display:block;background:var(--soft)}
+.maplink{display:inline-block;margin:10px 0 36px;color:var(--mut)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px 48px}
+.cols p{margin:0 0 16px;color:var(--mut)}
+.facts{display:flex;flex-wrap:wrap;gap:12px 40px;margin:8px 0 32px}
+.facts b{display:block;font-size:30px;letter-spacing:-.03em;line-height:1.1}
+.facts span{color:var(--mut);font-size:15px}
+
+/* rozwój */
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden;margin:6px 0 8px;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0;background:var(--fg);border-radius:99px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.todo{display:grid;grid-template-columns:1fr 1fr;gap:12px 48px;margin-top:36px}
+.todo h3{margin:0 0 14px;font-size:22px}
+.todo ul{list-style:none;margin:0;padding:0}
+.todo li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}
+.box{flex:none;width:24px;height:24px;border:2px solid var(--fg);border-radius:6px;display:grid;place-items:center;margin-top:2px}
+.box svg{width:16px;height:16px;stroke:var(--bg);stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24}
+.done .box{background:var(--fg)}
+.done .box svg{animation:draw .5s .15s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done span.t{color:var(--mut);text-decoration:line-through;text-decoration-thickness:1px}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--mut);font-size:15px}
+@media (max-width:720px){
+  .entry{grid-template-columns:1fr}.entry time{padding:0}
+  .cols,.todo{grid-template-columns:1fr}
+  .logo{width:100%;margin-bottom:2px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <nav class="wrap" aria-label="Główna nawigacja">
+    <a class="logo" href="#glowna">Projekt Lublin</a>
+    <a class="lnk" href="#download">Download</a>
+    <a class="lnk" href="#info">Info</a>
+    <a class="lnk" href="#rozwoj">Rozwój</a>
+    <a class="discord" id="dc" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+      Discord
+    </a>
+    <button id="theme" type="button" aria-label="Zmień motyw na biały lub czarny" title="Zmień motyw">◐</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <!-- GŁÓWNA -->
+  <section data-view="glowna">
+    <div class="hero">
+      <h1 id="title" aria-label="Projekt Lublin"></h1>
+      <p class="sub">Najnowsze wpisy z postępu prac.</p>
+    </div>
+    <div id="entries" aria-live="polite"></div>
+    <nav class="pager" id="pager" aria-label="Strony wpisów"></nav>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section data-view="download" class="page">
+    <h2>Download</h2>
+    <p class="lead">Tutaj pojawią się pliki do pobrania.</p>
+  </section>
+
+  <!-- INFO -->
+  <section data-view="info" class="page">
+    <h2>Info</h2>
+    <p class="lead">Gdzie to wszystko się dzieje.</p>
+    <!-- Wersja z kluczem API: zamień src na
+         https://www.google.com/maps/embed/v1/place?key=TWÓJ_KLUCZ&q=Lublin,Polska -->
+    <iframe class="map" title="Mapa Lublina" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+      src="https://www.google.com/maps?q=Lublin,Polska&z=12&output=embed"></iframe>
+    <a class="maplink" href="https://www.google.com/maps/place/Lublin" target="_blank" rel="noopener">Otwórz w Google Maps</a>
+    <div class="facts">
+      <div><b>ok. 330 tys.</b><span>mieszkańców</span></div>
+      <div><b>1317</b><span>prawa miejskie</span></div>
+      <div><b>1569</b><span>Unia Lubelska</span></div>
+    </div>
+    <div class="cols">
+      <p>Lublin to największe miasto wschodniej Polski i stolica województwa lubelskiego. Leży nad rzeką Bystrzycą, na styku Wyżyny Lubelskiej i Polesia, a jego historia sięga wczesnego średniowiecza.</p>
+      <p>W 1569 roku w Lublinie zawarto unię polsko-litewską. Dziś miasto słynie ze Starego Miasta, Zamku Lubelskiego, Krakowskiego Przedmieścia oraz dużej, młodej społeczności akademickiej – działają tu m.in. UMCS i KUL.</p>
+    </div>
+  </section>
+
+  <!-- ROZWÓJ -->
+  <section data-view="rozwoj" class="page">
+    <h2>Rozwój</h2>
+    <p class="lead" id="progressText"></p>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar"><i></i></div>
+    <div class="todo">
+      <div><h3>Zrobione</h3><ul id="doneList"></ul></div>
+      <div><h3>Do zrobienia</h3><ul id="openList"></ul></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Projekt Lublin</div></footer>
+
+<script>
+/* ====== TUTAJ EDYTUJESZ TREŚĆ ====== */
+const DISCORD_URL = "https://discord.gg/";
+
+// Wpisy – kolejność nie ma znaczenia, strona sama układa od najnowszego
+const ENTRIES = [
+  {date:"2026-10-28", title:"Tytuł wpisu 8", text:"Tu wpiszesz treść najnowszego wpisu. Krótki opis tego, co się zmieniło w projekcie."},
+  {date:"2026-10-21", title:"Tytuł wpisu 7", text:"Przykładowa treść wpisu. Możesz tu opisać nową funkcję, poprawkę albo ogłoszenie."},
+  {date:"2026-10-14", title:"Tytuł wpisu 6", text:"Przykładowa treść wpisu. Zastąp ją własnym tekstem."},
+  {date:"2026-10-05", title:"Tytuł wpisu 5", text:"Przykładowa treść wpisu. Zastąp ją własnym tekstem."},
+  {date:"2026-09-27", title:"Tytuł wpisu 4", text:"Przykładowa treść wpisu. Zastąp ją własnym tekstem."},
+  {date:"2026-09-18", title:"Tytuł wpisu 3", text:"Przykładowa treść wpisu. Zastąp ją własnym tekstem."},
+  {date:"2026-09-09", title:"Tytuł wpisu 2", text:"Przykładowa treść wpisu. Zastąp ją własnym tekstem."},
+  {date:"2026-09-01", title:"Tytuł wpisu 1", text:"Pierwszy wpis w projekcie. Zastąp go własnym tekstem."}
+];
+const PER_PAGE = 4;
+
+// Rozwój – done:true = zrobione
+const TASKS = [
+  {t:"Pomysł i założenia projektu", done:true},
+  {t:"Strona główna", done:true},
+  {t:"Serwer Discord", done:true},
+  {t:"Pierwsza wersja do pobrania", done:false},
+  {t:"Mapa i opisy lokalizacji", done:false},
+  {t:"Testy z graczami", done:false},
+  {t:"Oficjalne wydanie", done:false}
+];
+/* ==================================== */
+
+const $ = s => document.querySelector(s);
+$("#dc").href = DISCORD_URL;
+
+/* motyw */
+const root = document.documentElement;
+function curTheme(){ return root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); }
+try { const s = localStorage.getItem("pl-theme"); if (s) root.dataset.theme = s; } catch(e){}
+$("#theme").addEventListener("click", () => {
+  const n = curTheme() === "dark" ? "light" : "dark";
+  root.dataset.theme = n;
+  try { localStorage.setItem("pl-theme", n); } catch(e){}
+});
+
+/* tytuł z animacją liter */
+let k = 0;
+$("#title").innerHTML = ["Projekt","Lublin"].map(w =>
+  '<span class="w" aria-hidden="true">' + [...w].map(ch => '<span class="c" style="--i:' + (k++) + '">' + ch + '</span>').join("") + '</span>').join("");
+
+/* wpisy + paginacja */
+const sorted = [...ENTRIES].sort((a,b) => b.date.localeCompare(a.date));
+const pages = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
+let page = 1;
+const fmt = d => new Date(d + "T12:00:00").toLocaleDateString("pl-PL", {day:"numeric", month:"long", year:"numeric"});
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderEntries(){
+  const slice = sorted.slice((page-1)*PER_PAGE, page*PER_PAGE);
+  $("#entries").innerHTML = slice.map((e,i) =>
+    '<article class="entry new" style="--i:' + i + '"><time datetime="' + e.date + '">' + fmt(e.date) +
+    '</time><div><h3>' + esc(e.title) + '</h3><p>' + esc(e.text) + '</p></div></article>').join("");
+  let h = '<button type="button" data-p="' + (page-1) + '"' + (page===1?" disabled":"") + ' aria-label="Poprzednia strona">←</button>';
+  for (let i=1;i<=pages;i++) h += '<button type="button" data-p="' + i + '"' + (i===page?' aria-current="true"':"") + '>' + i + '</button>';
+  h += '<button type="button" data-p="' + (page+1) + '"' + (page===pages?" disabled":"") + ' aria-label="Następna strona">→</button>';
+  $("#pager").innerHTML = h;
+  $("#pager").style.display = pages > 1 ? "flex" : "none";
+}
+$("#pager").addEventListener("click", ev => {
+  const b = ev.target.closest("button[data-p]");
+  if (!b || b.disabled) return;
+  page = +b.dataset.p; renderEntries();
+  $("#entries").scrollIntoView({behavior:"smooth", block:"start"});
+});
+renderEntries();
+
+/* rozwój */
+const check = '<span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>';
+const li = (x, d) => '<li class="' + (d?"done":"") + '">' + check + '<span class="t">' + esc(x.t) + '</span></li>';
+$("#doneList").innerHTML = TASKS.filter(x=>x.done).map(x=>li(x,true)).join("");
+$("#openList").innerHTML = TASKS.filter(x=>!x.done).map(x=>li(x,false)).join("");
+const pct = Math.round(TASKS.filter(x=>x.done).length / TASKS.length * 100);
+$("#progressText").textContent = "Gotowe w " + pct + "%";
+$("#bar").setAttribute("aria-valuenow", pct);
+
+/* widoki (hash) */
+const views = ["glowna","download","info","rozwoj"];
+function route(){
+  const h = location.hash.slice(1); const v = views.includes(h) ? h : "glowna";
+  document.querySelectorAll("[data-view]").forEach(s => s.classList.toggle("on", s.dataset.view === v));
+  document.querySelectorAll("nav a.lnk").forEach(a => a.toggleAttribute("aria-current", a.getAttribute("href") === "#" + v) );
+  document.querySelectorAll("nav a.lnk").forEach(a => { if (a.hasAttribute("aria-current")) a.setAttribute("aria-current","page"); });
+  $("#bar i").style.width = "0";
+  if (v === "rozwoj") setTimeout(() => $("#bar i").style.width = pct + "%", 80);
+  if (v === "rozwoj") document.querySelectorAll(".done .box svg").forEach(s => { s.style.animation="none"; s.getBoundingClientRect(); s.style.animation=""; });
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange", route); route();
+</script>
+</body>
+</html>
