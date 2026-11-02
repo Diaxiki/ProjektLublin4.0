@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekt Lublin</title>
+<meta name="description" content="Projekt Lublin – mapa Lublina do OMSI 2. Aktualności, mody, rozwój, galeria.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   MOTYW: domyślnie czarno-biały (dark), przełączany na biało-czarny (light)
+   ========================================================= */
+:root{
+  --accent:#ff7a1a;            /* pomarańczowy – pasek Linii 151 */
+  --radius:14px;
+  --maxw:1180px;
+  --display:"Space Grotesk",Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+[data-theme="dark"]{
+  --bg:#000; --bg-2:#0b0b0b; --card:#0f0f0f; --line:#222; --line-2:#333;
+  --text:#fff; --muted:#9a9a9a; --invert:#fff; --on-invert:#000;
+  --particle:255,255,255;
+}
+[data-theme="light"]{
+  --bg:#fff; --bg-2:#f5f5f5; --card:#fafafa; --line:#e4e4e4; --line-2:#cfcfcf;
+  --text:#000; --muted:#5f5f5f; --invert:#000; --on-invert:#fff;
+  --particle:0,0,0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;
+  min-height:100vh;display:flex;flex-direction:column;
+  transition:background .35s var(--ease),color .35s var(--ease);
+}
+h1,h2,h3,h4,.btn{font-family:var(--display)}
+.logo,.nav a,.discord{font-family:Arial,Helvetica,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.icon{width:1.15em;height:1.15em;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.icon.fill{fill:currentColor;stroke:none}
+
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+main,header,footer{position:relative;z-index:1}
+
+/* ================= NAVBAR ================= */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.navbar{display:flex;align-items:center;gap:16px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;letter-spacing:-.01em;white-space:nowrap}
+.logo img{width:36px;height:36px;object-fit:contain}
+.nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav a{
+  display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:10px;
+  font-size:.95rem;font-weight:500;color:var(--muted);transition:color .2s,background .2s;
+}
+.nav a:hover{color:var(--text);background:var(--bg-2)}
+.nav a.active{color:var(--text);background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line)}
+.nav-tools{display:flex;align-items:center;gap:8px}
+.discord{
+  display:flex;align-items:center;gap:9px;padding:9px 16px;border-radius:10px;
+  background:#5865f2;color:#fff;font-weight:600;font-size:.95rem;
+  box-shadow:0 4px 18px rgba(88,101,242,.35);
+  transition:transform .2s var(--ease),opacity .2s;
+}
+.discord:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(88,101,242,.5)}
+.discord .icon{width:20px;height:20px}
+.icon-btn{
+  width:40px;height:40px;display:grid;place-items:center;border-radius:10px;
+  border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;
+  transition:background .2s,transform .3s var(--ease);
+}
+.icon-btn:hover{background:var(--bg-2)}
+.icon-btn .icon{width:19px;height:19px}
+#themeBtn .i-sun{display:none}
+[data-theme="light"] #themeBtn .i-sun{display:block}
+[data-theme="light"] #themeBtn .i-moon{display:none}
+#menuBtn{display:none}
+
+/* ================= OGÓLNE ================= */
+main{flex:1;padding:48px 0 72px}
+.page{display:none;animation:fade .45s var(--ease)}
+.page.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page-head{margin-bottom:32px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.page-head h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.08;letter-spacing:-.03em}
+.page-head p{color:var(--muted);margin-top:10px;max-width:640px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color .25s,transform .3s var(--ease)}
+.card:hover{border-color:var(--line-2)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:11px;
+  background:var(--invert);color:var(--on-invert);font-weight:600;border:1px solid var(--invert);cursor:pointer;
+  transition:transform .2s var(--ease),opacity .2s;font-size:.95rem;
+}
+.btn:hover{transform:translateY(-2px);opacity:.9}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--line-2)}
+
+/* miejsce na zdjęcie – wstaw <img> do środka, placeholder zniknie */
+.media{
+  position:relative;aspect-ratio:16/9;background:var(--bg-2);display:grid;place-items:center;
+  color:var(--muted);overflow:hidden;
+}
+.media::after{content:"";position:absolute;inset:0;pointer-events:none}
+.media .ph{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.82rem}
+.media .ph .icon{width:34px;height:34px;stroke-width:1.2}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media:has(img) .ph{display:none}
+
+/* ================= WPISY (główna) ================= */
+.layout{display:grid;grid-template-columns:minmax(0,1fr);max-width:980px;margin:0 auto;gap:32px;align-items:start}
+.posts{display:grid;grid-template-columns:1fr;gap:26px}
+.post .media{aspect-ratio:2/1}
+.post .body{padding:22px 26px 26px!important}
+.post h3{font-size:1.6rem!important}
+.post p{font-size:1rem!important}
+.post .body{padding:18px 20px 22px}
+.meta{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--muted)}
+.post h3{font-size:1.25rem;margin:6px 0 8px;letter-spacing:-.01em}
+.post p{color:var(--muted);font-size:.95rem}
+.post:hover{transform:translateY(-3px)}
+
+/* paginacja */
+.pager{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:30px;flex-wrap:wrap}
+.pager button{
+  min-width:40px;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--line);
+  background:transparent;color:var(--text);cursor:pointer;font-family:var(--display);font-weight:600;
+  display:grid;place-items:center;transition:background .2s,border-color .2s;
+}
+.pager button:hover:not(:disabled){border-color:var(--line-2);background:var(--bg-2)}
+.pager button.on{background:var(--invert);color:var(--on-invert);border-color:var(--invert)}
+.pager button:disabled{opacity:.35;cursor:default}
+
+/* ================= SUPPI ================= */
+.support{position:sticky;top:96px;padding:22px}
+.support h3{display:flex;align-items:center;gap:9px;font-size:1.1rem;margin-bottom:4px}
+.support > p{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+.donations{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.don{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:.88rem;
+}
+.don .who{display:flex;align-items:center;gap:9px;min-width:0}
+.don .av{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--bg-2);border:1px solid var(--line);flex:none}
+.don .av .icon{width:15px;height:15px}
+.don .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.don .amt{font-family:var(--display);font-weight:700;white-space:nowrap}
+.support .btn{width:100%}
+.support .btn .icon{color:var(--accent)}
+
+/* ================= MOD ================= */
+.mods{display:flex;flex-direction:column;gap:22px}
+.mod{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);width:100%}
+.mod .media{aspect-ratio:auto;min-height:220px;height:100%}
+.mod .body{padding:24px 26px;display:flex;flex-direction:column;gap:10px}
+.mod h3{font-size:1.4rem;letter-spacing:-.01em}
+.mod p{color:var(--muted)}
+.mod .row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+
+/* ================= DOWNLOAD ================= */
+.dl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.dl{padding:26px;display:flex;flex-direction:column;gap:12px}
+.dl .ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);background:var(--bg)}
+.dl .ic .icon{width:24px;height:24px}
+.dl h3{font-size:1.2rem}
+.dl p{color:var(--muted);font-size:.93rem;flex:1}
+.dl .meta{margin-bottom:6px}
+
+/* archiwum wersji */
+.arch-head{display:flex;align-items:center;gap:10px;margin:48px 0 6px;font-size:1.5rem;letter-spacing:-.02em}
+.arch-sub{color:var(--muted);margin-bottom:20px}
+.arch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ver{display:flex;align-items:center;gap:16px;padding:16px 18px}
+.ver .tag{font-family:var(--display);font-weight:700;padding:6px 11px;border-radius:9px;border:1px solid var(--line-2);white-space:nowrap}
+.ver .txt{flex:1;min-width:0}
+.ver h4{font-size:1rem}
+.ver .txt p{color:var(--muted);font-size:.85rem}
+.ver .btn{padding:10px 14px}
+
+/* ================= ROZWÓJ ================= */
+.progress-card{padding:28px}
+.progress-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.line-tag{display:flex;align-items:center;gap:14px}
+.line-num{
+  font-family:var(--display);font-weight:700;font-size:1.5rem;padding:6px 14px;border-radius:10px;
+  background:var(--invert);color:var(--on-invert);letter-spacing:-.02em;
+}
+.line-tag h2{font-size:1.4rem}
+.line-tag small{display:block;color:var(--muted);font-size:.85rem}
+.pct{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,3.2rem);line-height:1;color:var(--text)}
+.bar{height:16px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line);overflow:hidden}
+.bar span{
+  display:block;height:100%;width:0;border-radius:99px;
+  background:var(--invert);
+  transition:width 1.4s var(--ease);
+}
+.progress-info{display:flex;gap:18px;margin-top:12px;color:var(--muted);font-size:.88rem;flex-wrap:wrap}
+.progress-info b{color:var(--text)}
+.tasks{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.tasks .card{padding:24px}
+.tasks h3{display:flex;align-items:center;gap:10px;font-size:1.1rem;margin-bottom:14px}
+.tasks h3 .ok{color:var(--text)}
+.tasks h3 .no{color:#ef4444}
+.todo-list li::before{border-color:#ef4444}
+.tasks h3 .count{margin-left:auto;font-size:.82rem;color:var(--muted);font-weight:500}
+.task-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.task-list li{
+  display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border-radius:10px;
+  background:var(--bg);border:1px solid var(--line);font-size:.93rem;
+}
+.task-list li::before{
+  content:"";flex:none;width:18px;height:18px;margin-top:2px;border-radius:6px;border:1.5px solid var(--line-2);
+}
+.done-list li{color:var(--muted)}
+.done-list li::before{
+  border-color:var(--invert);background-color:var(--invert);
+  background-position:center;background-size:12px;background-repeat:no-repeat;
+}
+[data-theme="dark"] .done-list li::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E")}
+[data-theme="light"] .done-list li::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E")}
+
+/* ================= GALERIA ================= */
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.gallery .card{cursor:zoom-in}
+.gallery .media{aspect-ratio:4/3}
+.gallery .body{padding:16px 18px 20px}
+.gallery h3{font-size:1.08rem;margin-bottom:4px}
+.gallery p{color:var(--muted);font-size:.9rem}
+.gallery .card:hover{transform:translateY(-3px)}
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;place-items:center;padding:24px}
+.lightbox.open{display:grid}
+.lightbox img{max-height:86vh;border-radius:12px}
+.lightbox .icon-btn{position:absolute;top:18px;right:18px;color:#fff;border-color:#444}
+
+/* ================= INFO ================= */
+.info-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px}
+.map{min-height:420px;position:relative}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.about{padding:28px;display:flex;flex-direction:column;gap:16px}
+.about h2{font-size:1.6rem;letter-spacing:-.02em}
+.about p{color:var(--muted);font-size:.95rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{padding:14px;border:1px solid var(--line);border-radius:11px;background:var(--bg)}
+.stat .icon{width:20px;height:20px;color:var(--muted);margin-bottom:6px}
+.stat b{display:block;font-family:var(--display);font-size:1.25rem;line-height:1.2}
+.stat span{font-size:.78rem;color:var(--muted)}
+.src{font-size:.75rem;color:var(--muted)}
+.photos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:22px}
+.photos .media{aspect-ratio:1/1;border-radius:var(--radius);border:1px solid var(--line)}
+
+/* ================= FOOTER ================= */
+footer{border-top:1px solid var(--line);background:var(--bg)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:26px 20px;flex-wrap:wrap}
+.foot .brand{font-family:var(--display);font-weight:700;font-size:1.15rem}
+.foot nav{display:flex;gap:18px;flex-wrap:wrap}
+.foot nav a{font-size:.83rem;color:var(--muted);transition:color .2s}
+.foot nav a:hover{color:var(--text)}
+
+/* ================= ROZWÓJ: mapa trasy linii 151 ================= */
+.route-card{margin-top:22px}
+.route-stage{position:relative;line-height:0}
+.route-stage img{display:block;width:100%;height:auto}
+.route-stage svg{position:absolute;inset:0;width:100%;height:100%}
+.route-point text{font-family:Arial,Helvetica,sans-serif;font-size:21px;font-weight:700;fill:#fff}
+#routeFill{stroke-dasharray:100 100;stroke-dashoffset:100;filter:drop-shadow(0 0 4px rgba(255,122,26,.8))}
+
+/* ================= GŁÓWNA: przycisk Wesprzyj ================= */
+.support-box{display:flex;justify-content:center;margin-top:28px}
+.support-box .btn{min-width:220px}
+.support-box .btn .icon{color:var(--accent)}
+
+/* ================= RESPONSYWNOŚĆ ================= */
+@media (max-width:1060px){
+  .nav a{padding:9px 10px}
+  .discord span{display:none}
+  .discord{padding:9px 11px}
+}
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr}
+  .support{position:static}
+  .dl-grid,.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .info-grid{grid-template-columns:1fr}
+  .map{min-height:340px}
+  .photos{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  #menuBtn{display:grid}
+  .nav{
+    position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;
+    padding:10px 16px 16px;background:var(--bg);border-bottom:1px solid var(--line);
+    transform:translateY(-8px);opacity:0;pointer-events:none;transition:all .25s var(--ease);
+  }
+  .nav.open{transform:none;opacity:1;pointer-events:auto}
+  .nav a{padding:13px 14px;font-size:1rem}
+  .nav-tools{margin-left:auto}
+  .mod{grid-template-columns:1fr}
+  .mod .media{aspect-ratio:16/9;min-height:0;height:auto}
+}
+@media (max-width:640px){
+  main{padding:32px 0 56px}
+  .posts,.dl-grid,.gallery,.tasks{grid-template-columns:1fr}
+  .post .media{aspect-ratio:16/10}
+  .post .body{padding:18px 20px 22px!important}
+  .post h3{font-size:1.3rem!important}
+  .arch{grid-template-columns:1fr!important}
+  .foot{flex-direction:column;align-items:flex-start}
+  .mod .body,.about,.progress-card{padding:20px}
+}
+@media (max-width:380px){
+  .logo{font-size:1rem}
+  .wrap{padding:0 14px}
+  .stats{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ IKONY (SVG sprite – cienka linia) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-mod" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-dev" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 18v3M16 18v3"/><circle cx="8" cy="14.5" r=".6"/><circle cx="16" cy="14.5" r=".6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-4-6.3"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></symbol>
+  <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M2 10l10-7 10 7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></symbol>
+  <symbol id="i-discord" viewBox="0 0 24 24"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.89-1.52.07.07 0 0 0-.08.04c-.21.38-.44.87-.61 1.25a18.27 18.27 0 0 0-5.49 0 12.64 12.64 0 0 0-.62-1.25.08.08 0 0 0-.08-.04 19.74 19.74 0 0 0-4.89 1.52.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.23-1.99a.08.08 0 0 0-.04-.11 13.1 13.1 0 0 1-1.87-.89.08.08 0 0 1-.01-.13l.37-.29a.07.07 0 0 1 .08-.01c3.93 1.79 8.18 1.79 12.06 0a.07.07 0 0 1 .08.01l.37.29a.08.08 0 0 1-.01.13c-.6.35-1.22.65-1.87.89a.08.08 0 0 0-.04.11c.36.7.78 1.36 1.23 1.99a.08.08 0 0 0 .08.03 19.84 19.84 0 0 0 6-3.03.08.08 0 0 0 .03-.06c.5-5.18-.84-9.67-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42z"/></symbol>
+</svg>
+
+<canvas id="particles"></canvas>
+
+<!-- ================= NAVBAR ================= -->
+<header>
+  <div class="wrap navbar">
+    <a class="logo" href="#glowna"><img id="logoImg" alt="Metaliczne logo Projekt Lublin" src="image/Metaliczny_logo_Projekt_Lublin.png" width="1013" height="448" style="width: 50%; height: auto; max-width: 2000px;"></a>
+
+    <nav class="nav" id="nav">
+      <a href="#download"><svg class="icon"><use href="#i-download"/></svg>Download</a>
+      <a href="#mod"><svg class="icon"><use href="#i-mod"/></svg>MOD</a>
+      <a href="#rozwoj"><svg class="icon"><use href="#i-dev"/></svg>Rozwój</a>
+      <a href="#galeria"><svg class="icon"><use href="#i-image"/></svg>Galeria</a>
+      <a href="#info"><svg class="icon"><use href="#i-info"/></svg>Info</a>
+    </nav>
+
+    <div class="nav-tools">
+      <a class="discord" href="https://discord.gg/DWz5tAW4T4" target="_blank" rel="noopener">
+        <svg class="icon fill"><use href="#i-discord"/></svg><span>Discord</span>
+      </a>
+      <button class="icon-btn" id="themeBtn" aria-label="Zmień motyw">
+        <svg class="icon i-moon"><use href="#i-moon"/></svg>
+        <svg class="icon i-sun"><use href="#i-sun"/></svg>
+      </button>
+      <button class="icon-btn" id="menuBtn" aria-label="Menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<!-- =====================================================
+     STRONA GŁÓWNA – WPISY
+     Dodaj nowy wpis kopiując blok <article class="card post">.
+     Paginacja: 4 wpisy na stronę (działa automatycznie).
+     ===================================================== -->
+<section class="page" id="page-glowna">
+  <div class="page-head">
+    <div class="eyebrow"><svg class="icon"><use href="#i-bus"/></svg>Aktualności</div>
+    <h1>Projekt Lublin</h1>
+    <p>Najnowsze wpisy i informacje o postępach projektu.</p>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="posts" data-paginate="4">
+        <article class="card post">
+  <div class="media">
+    <img src="image/Nowa_miniatruka1.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;">
+  </div>
+  <div class="body">
+    <div class="meta"><svg class="icon"><use href="#i-cal"/></svg>01.11.2026</div>
+    <h3>OpenOmsi Projekt Lublin 4.0 151 Węglin-Wojciechowska</h3>
+    <p>Postanowiliśmy przetestować nowy projekt OpenOmsi na mapie Lublina, wyniki są bardzo ciekawe. Mimo, że teren wizualnie może wyglądać identycznie jak na poprzednim filmie to prace nadal trwają. Na Kraśnickiej zostały juz głównie minimalne poprawki i ruch/kostki AI, natomiast ulica Kunickiego zaszła już za skrzyżowanie Kunickiego i Zemborzyckiej (same spliny na ten moment). Niestety rąk do pomocy jest bardzo mało (a właściwie w ogóle ich nie ma) dlatego projekt długo się ciągnie, chętnych do udzielenia jakiejkolwiek pomocy prosimy o kontakt przez "ticket" na serwerze Discord</p>
+  </div>
+</article>
+        <article class="card post">
+<div class="media" style="aspect-ratio: auto; background: #111;">
+  <img src="image/image.png" alt="Miniaturka wpisu"
+       style="position: static; width: 100%; height: auto; display: block;">
+</div>
+  <div class="body">
+    <div class="meta"><svg class="icon"><use href="#i-cal"/></svg>01.11.2026</div>
+    <h3>
+Linia 151 Projekt Lublin 4.0 odcinek Węglin - Wojciechowska</h3>
+    <p>Pierwszy przejazd po skończonym odcinku 151 Węglin - Wojciechowska. Wszystkie linki w komentarzu pod filmem.</p>
+  </div>
+</article>
+        </article>
+        <article class="card post">
+<div class="media" style="aspect-ratio: auto; background: #111;">
+  <img src="image/Bogdan.png" alt="Miniaturka wpisu"
+       style="position: static; width: 100%; height: auto; display: block;">
+</div>
+  <div class="body">
+    <div class="meta"><svg class="icon"><use href="#i-cal"/></svg>01.11.2026</div>
+    <h3>
+Trolejbus Ursus T70116 AI</h3>
+    <p>Witajcie po długiej przerwie. Wracamy do was z małym smaczkiem, co byście nie myśleli, że prace są zawieszone, albo co gorsza, porzucone. Tym razem proponujemy małe urozmaicenie w postaci trajtka Ursus T70116 jako kolejnego modelu AI.
+    Link do pojazdu: <a href="https://czerstwy.wordpress.com/2020/08/10/lubelski-ursus-t70116/"></a>
+</p>
+  </div>
+</article>
+        </article>
+      </div>
+      <div class="pager"></div>
+
+      <!-- WESPRZYJ – wstaw swój link w href -->
+      <div class="support-box">
+        <a class="btn" href="https://suppi.pl/projekt-lublin-omsi2" target="_blank" rel="noopener noreferrer">
+          <svg class="icon"><use href="#i-heart"/></svg>Wesprzyj
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== SUPPI – ostatnie 5 wpłat (edytuj ręcznie) ===== -->
+    
+  </div>
+</section>
+
+<!-- ================= DOWNLOAD ================= -->
+<section class="page" id="page-download">
+  <div class="page-head">
+    <div class="eyebrow"><svg class="icon"><use href="#i-download"/></svg>Pobieranie</div>
+    <h1>Download</h1>
+    <p>Pobierz najnowszą wersję mapy i dodatków.</p>
+  </div>
+  <div class="dl-grid">
+    <div class="card dl">
+      <div class="ic"><svg class="icon"><use href="#i-box"/></svg></div>
+      <h3>Mapa Projekt Lublin</h3>
+      <div class="meta"><svg class="icon"><use href="#i-clock"/></svg>Wersja: 3.0</div>
+      <p>Po prostu pobierz.</p>
+      <a class="btn" href="https://drive.google.com/file/d/1SNj1RhmgZAvMokXrYNw80QjWJllW228w/view" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+    </div>
+    <div class="card dl">
+      <div class="ic"><svg class="icon"><use href="#i-layers"/></svg></div>
+      <h3>Dodatki</h3>
+      <div class="meta"><svg class="icon"><use href="#i-clock"/></svg>Wersja: 3_1.7z</div>
+      <p>Opis pliku do pobrania.</p>
+      <a class="btn ghost" href="https://drive.google.com/file/d/1q6MtrCYyjl5p9Pfj3M-oiu_GfjnOCvi2/view" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+    </div>
+  </div>
+
+  <!-- ARCHIWUM – poprzednie wersje mapy. Skopiuj blok <div class="card ver"> aby dodać wersję. -->
+  <h2 class="arch-head" id="archiwum"><svg class="icon"><use href="#i-layers"/></svg>Archiwum</h2>
+  <p class="arch-sub">Poprzednie wersje mapy.</p>
+  <div class="arch">
+    <div class="card ver">
+      <span class="tag">v2.0</span>
+      <div class="txt"><h4>Projekt Lublin 2.0</h4><p>Data wydania 09.08.18<br>
+        · dodano nową linię – 156<br>
+        · zaktualizowano trasę linii 55<br>
+        · zaktualizowano otoczenie, stan na 2017/2018 rok.</p></div>
+      <a class="btn ghost" href="https://drive.google.com/open?id=1BufN91J4SF_T0DEdlpeOVboKchWGx-es" aria-label="Pobierz"><svg class="icon"><use href="#i-download"/></svg></a>
+    </div>
+    <div class="card ver">
+      <span class="tag">v1.0</span>
+      <div class="txt"><h4>Projekt Lublin 1.0</h4><p>Data wydania  2013  <br> · Dodano linię 55</p></div>
+      <a class="btn ghost" href="https://mega.nz/#!iREF1ZDT!QGIcBx_Pm7yJvBmMnStib53HQ4yHY2uN7pkcHFQOJ9g" aria-label="Pobierz"><svg class="icon"><use href="#i-download"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     MOD – kontenery na całą szerokość, 4 na stronę
+     Dodaj nowy mod kopiując blok <article class="card mod">.
+     ===================================================== -->
+<section class="page" id="page-mod">
+  <div class="page-head">
+    <div class="eyebrow"><svg class="icon"><use href="#i-mod"/></svg>Modyfikacje</div>
+    <h1>MOD</h1>
+    <p>Modyfikacje stworzone przez społeczność.</p>
+  </div>
+  <div class="mods" data-paginate="4">
+   <article class="card mod">
+  <div class="media">
+    <a href="strona-modyfikacji.html">
+      <video src="image/F1HsbtP.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; display: block; object-fit: cover;"></video>
+    </a>
+  </div>
+  <div class="body">
+    <h3>Sieć trolejbusowa.</h3>
+    <p>Sieć trolejbusowa ze zwrotnicami, podwieszeniami i wskaźnikami LED poza zajezdnią.
+Poprawiony przebieg sieci i usunięte stare przewody z wybranych skrzyżowań.
+HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.
+.</p>
+    <div class="row">
+      <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Gumolit</div>
+      <a class="btn" href=" https://docs.google.com/uc?export=download&id=1lz8CTv5v6vP9B9DKi6xl839HoJsEwF2w"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+    </div>
+  </div>
+</article>
+    <article class="card mod">
+      <div class="media"> <img src="image/autosqn.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
+      <div class="body">
+        <h3>Malowanie AUTOSAN</h3>
+        <p>Na stronie znajdują 3 rózne malowania dla lublina.</p>
+        <div class="row">
+          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: 65Vajpej</div>
+          
+           <a class="btn" href="https://vajpej.github.io/omsi"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+        </div>
+      </div>
+    </article>
+    <article class="card mod">
+      <div class="media"> <img src="image/image1.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
+      <div class="body">
+        <h3>Solaris Trolino 12MB III GEN</h3>
+        <p>Trolejbusy III generacji BETA.</p>
+        <div class="row">
+          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Solarisek_3813</div>
+          
+           <a class="btn" href="https://drive.google.com/file/d/1NbRT59n7K9zWYqrpJXO_Mq2cn5mULpot/view?usp=sharing
+"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+        </div>
+      </div>
+    </article>
+    <article class="card mod">
+      <div class="media"><img src="image/mody.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
+      <div class="body">
+        <h3>Easyiomsi</h3>
+        <p>Po ponad 1.5roku wychodzi nowa wtyczka do blendera. Wtyczka została stworzona przeze mnie. Jako Pierwszy użytkownik tej oto wtyczki zaleca się  używać wersji blendera 3.0+. Jest po prostu lepiej zoptymalizowana.Wtyczka jest w fazie BETA błędy mogą cię pojawić  szczególnie przy funkcjach tools. Dodatek może zimportować pliki .o3d .cfg .sco tak samo przy eksporcie.W toolsach są funkcje szybkiego importu eksportu oraz automatycznego bake <--- (Bake jest w fazie eksperymentalnej).Wtyczka jest zrobiona pod optymalizacje i wygodę użytkownika.</p>
+        <div class="row">
+          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Zetii</div>
+          <a class="btn" href="https://cdn.discordapp.com/attachments/1566461705699987677/1566482089593798706/easyiomsi_1.0r_beta.zip?ex=6ae95c61&is=6ae80ae1&hm=bd0c7b65cb17de3447706813b4e816bda431d902e677aa767b95029de6ebbd3a&"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+        </div>
+      </div>
+    </article>
+    <article class="card mod">
+      <div class="media"><img src="image/mody1.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
+      <div class="body">
+        <h3>Solaris Urbino 18 Plug - In HYBRID #2524-2535</h3>
+        <p>Myślę że sporo osób korzystało z malowania 2528 z lakierni O Buses, malowanie było ograniczone do jednego 2528. Teraz daje tutaj kontynuacje paczki do pierwszej, drugiej i części trzeciej transzy hybryd. (Wgrać do Texture/Rep FL/SU18_4D/Hybrid) 
+          <br> Klucz: iK5x6aObME-YtpKXLyI3Fg
+</p>
+        <div class="row">
+          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Der Omnibussimulator 2</div>
+          <a class="btn" href="https://mega.nz/folder/AAhSQYoI"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+        </div>
+      </div>
+    </article>
+        <article class="card mod">
+      <div class="media"><img src="image/mody2.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
+      <div class="body">
+        <h3>Solaris Trollino 12 MB #3888-3891</h3>
+        <p>Klucz: _Fj6HgSgYvbPO53vWZdllw </p>
+        <div class="row">
+          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Der Omnibussimulator 2</div>
+          <a class="btn" href="https://mega.nz/folder/hYBSEKpB"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+        </div>
+      </div>
+    </article>
+    <article class="card mod">
+      <div class="media"><img src="image/mody3.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
+      <div class="body">
+        <h3>Solaris Urbino 12 electric 4028-4032</h3>
+        <p>Siema wydaję malowania dla elektryków 12m 4028-4032, czyli dla ostatniej tercji Solairsów 12 electric dla MPK Lublin, która została dostarczona w 2022 roku. Wyróżnia się ona tym, że posiada pulpit z zegarami cyfrowymi, tak jak np. 18 metrowe elektryki lub hybrydy. Malowania zostały wykonane przeze mnie i były wzorowane na malowaniach z Radomskiej lakierni, dokładnie dla wozów 4001-4006 </p>
+        <div class="row">
+          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Pro_ziomek</div>
+          <a class="btn" href="ttps://mega.nz/file/VokmRSAL#kJmfrN5lbPWMWDSkce2ZouQlYQUS0PwrYuvLtNrFpn8"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="pager"></div>
+</section>
+
+<!-- =====================================================
+     ROZWÓJ – LINIA 151
+     Dodaj <li> do listy "done-list" (zrobione) albo "todo-list" (do zrobienia).
+     Procent i pasek przeliczą się same.
+     ===================================================== -->
+<section class="page" id="page-rozwoj">
+  <div class="page-head">
+    <div class="eyebrow"><svg class="icon"><use href="#i-dev"/></svg>Postęp prac</div>
+    <h1>Rozwój</h1>
+  </div>
+
+  <div class="card progress-card">
+    <div class="progress-top">
+      <div class="line-tag">
+        <span class="line-num">151</span>
+        <div><h2>Linia 151</h2><small>Postęp ukończenia</small></div>
+      </div>
+    </div>
+    <div class="progress-info">
+      <span>Zrobione: <b id="cDone">0</b></span>
+      <span>Do zrobienia: <b id="cTodo">0</b></span>
+    </div>
+  </div>
+
+  <!-- MAPA TRASY – zdjęcie + pomarańczowy pasek postępu.
+       PROCENT USTAWIASZ TUTAJ: zmień liczbę w data-progress (0–100).
+       Pasek wypełnia się od Węglina do Abramowic.
+       Zdjęcie: image/Przebiegtrasy.jpg (możesz podmienić na swoje o tych samych proporcjach 1376x752). -->
+  <div class="card route-card" id="routeCard" data-progress="90">
+    <div class="route-stage">
+      <img src="image/Przebiegtrasy.png" alt="Przebieg trasy linii 151 od Węglina do Abramowic" width="1376" height="752">
+      <svg viewBox="0 0 1376 752" preserveAspectRatio="none" aria-hidden="true">
+        <path id="routeFill" pathLength="100" fill="none" stroke="#ff7a1a" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"
+          d="M152 621 L154 606 L175 565 L194 521 L219 472 L240 431 L265 392 L290 352 L311 310 L333 268 L355 226 L382 190 L429 180 L476 171 L521 162 L560 153 L583 143 L608 149 L620 157 L632 173 L644 186 L656 195 L668 200 L692 203.5 L728 208.5 L764 214.5 L800 223.5 L836 231.5 L848 233.5 L860 241 L872 257 L884 274.5 L896 291 L908 307.5 L932 332 L944 340.5 L956 346.5 L968 355 L980 363.5 L992 373 L1004 383.5 L1016 393.5 L1028 403.5 L1040 412.5 L1052 417.5 L1093 437 L1125 471 L1157 504 L1178 544 L1200 592 L1219 634 L1221 650"/>
+
+        <!-- PUNKTY STAŁE – zawsze na początku i na końcu trasy, niezależnie od procentu -->
+        <g class="route-point">
+          <rect x="168" y="603" width="104" height="36" rx="18" fill="#050505"/>
+          <text x="182" y="628" textLength="78" lengthAdjust="spacingAndGlyphs">WĘGLIN</text>
+          <circle cx="152" cy="621" r="12" fill="#000" stroke="#fff" stroke-width="5"/>
+        </g>
+        <g class="route-point">
+          <rect x="1233" y="632" width="132" height="36" rx="18" fill="#050505"/>
+          <text x="1247" y="657" textLength="104" lengthAdjust="spacingAndGlyphs">ABRAMOWICE</text>
+          <circle cx="1221" cy="650" r="12" fill="#000" stroke="#fff" stroke-width="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tasks">
+    <div class="card">
+      <h3><svg class="icon ok"><use href="#i-check"/></svg>Zrobione <span class="count" id="hDone"></span></h3>
+      <ul class="task-list done-list">
+        <li>Wykonanie Ulic na Al.Kraśnickiej</li>
+        <li>Wykonanie wszystkich obiektów na Al.Kraśnickiej</li>
+        <li>Ulice na odcinku Targi-Głuska</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg class="icon no"><use href="#i-clock"/></svg>Do zrobienia <span class="count" id="hTodo"></span></h3>
+      <ul class="task-list todo-list">
+        <li>Ulice na odcinku Głuska-Abramowice</li>
+        <li>Wykonanie Obiektów na odcinku Kunickiego-Abramowice </li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     GALERIA – zdjęcie, tytuł, opis
+     Wstaw <img src="..."> do .media – placeholder zniknie.
+     ===================================================== -->
+<section class="page" id="page-galeria">
+  <div class="page-head">
+    <div class="eyebrow"><svg class="icon"><use href="#i-image"/></svg>Screenshoty</div>
+    <h1>Galeria</h1>
+  </div>
+  <div class="gallery">
+    <figure class="card">
+  <div class="media">
+    <img src="image/obrazyPokazujace.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;" />
+  </div>
+  <figcaption class="body">
+    <h3>Zwycięska</h3>
+    <p>Opis zdjęcia.</p>
+  </figcaption>
+</figure>
+    <figure class="card">
+  <div class="media">
+    <img src="image/obrazyPokazujace1.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;" />
+  </div>
+  <figcaption class="body">
+    <h3>Węglin</h3>
+    <p>Opis zdjęcia.</p>
+  </figcaption>
+</figure>
+<figure class="card">
+  <div class="media">
+    <img src="image/obrazyPokazujace2.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;" />
+  </div>
+  <figcaption class="body">
+    <h3>Poczekajka</h3>
+    <p>Opis zdjęcia.</p>
+  </figcaption>
+</figure>
+<figure class="card">
+  <div class="media">
+    <img src="image/obrazyPokazujace3.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;" />
+  </div>
+  <figcaption class="body">
+    <h3>Szpital Wojewódzki</h3>
+    <p>Opis zdjęcia.</p>
+  </figcaption>
+</figure>
+<figure class="card">
+  <div class="media">
+    <img src="image/obrazyPokazujace4.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;" />
+  </div>
+  <figcaption class="body">
+    <h3>Szpital Wojewódzki</h3>
+    <p>Opis zdjęcia.</p>
+  </figcaption>
+</figure>
+<figure class="card">
+  <div class="media">
+    <img src="image/obrazyPokazujace5.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;" />
+  </div>
+  <figcaption class="body">
+    <h3>Wojciechowska</h3>
+    <p>Opis zdjęcia.</p>
+  </figcaption>
+</figure>
+
+  </div>
+</section>
+
+<!-- ================= INFO ================= -->
+<section class="page" id="page-info">
+  <div class="page-head">
+    <div class="eyebrow"><svg class="icon"><use href="#i-pin"/></svg>O mieście</div>
+    <h1>Info</h1>
+  </div>
+
+  <div class="info-grid">
+    <div class="card map">
+      <!-- Mapa Google. Jeśli masz klucz Google Maps Embed API, możesz podmienić src na:
+           https://www.google.com/maps/embed/v1/place?key=TWÓJ_KLUCZ&q=Lublin,Polska -->
+      <iframe src="https://maps.google.com/maps?q=Lublin,%20Polska&z=12&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Lublina"></iframe>
+    </div>
+
+    <div class="card about">
+      <h2>Lublin</h2>
+      <p>Lublin to największe miasto we wschodniej Polsce i stolica województwa lubelskiego. Położony nad Bystrzycą, słynie z malowniczego Starego Miasta, Zamku Lubelskiego z Kaplicą Trójcy Świętej oraz Bramy Krakowskiej. To ważny ośrodek akademicki z kilkoma uczelniami i dziesiątkami tysięcy studentów. Lublin ma jedną z największych sieci trolejbusowych w Polsce, a komunikację miejską obsługuje ZTM Lublin.</p>
+      <div class="stats">
+        <div class="stat"><svg class="icon"><use href="#i-users"/></svg><b>326 685</b><span>mieszkańców (koniec 2025)</span></div>
+        <div class="stat"><svg class="icon"><use href="#i-area"/></svg><b>147,5 km²</b><span>powierzchnia</span></div>
+        <div class="stat"><svg class="icon"><use href="#i-landmark"/></svg><b>1317</b><span>prawa miejskie</span></div>
+        <div class="stat"><svg class="icon"><use href="#i-pin"/></svg><b>lubelskie</b><span>województwo</span></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- 4 zdjęcia z Lublina – wstaw <img src="..."> do .media -->
+  <div class="photos">
+    <div class="media"> <img src="/image/Lublin/images.jpg" alt=""><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Zdjęcie 1</div></div>
+    <div class="media"><img src="/image/Lublin/images (1).jpg" alt=""><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Zdjęcie 2</div></div>
+    <div class="media"><img src="/image/Lublin/image2.jpg" alt=""><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Zdjęcie 3</div></div>
+    <div class="media"><img src="/image/Lublin/image3.jpg" alt=""><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Zdjęcie 4</div></div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot">
+    <div class="brand">Projekt Lublin 2026</div>
+    <nav>
+      <a href="#download">Download</a>
+      <a href="#info">Info</a>
+      <a href="#rozwoj">Rozwój</a>
+      <a href="#galeria">Galeria</a>
+      <a href="https://discord.gg/DWz5tAW4T4" target="_blank" rel="noopener">Discord</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="icon-btn" aria-label="Zamknij"><svg class="icon"><use href="#i-x"/></svg></button>
+  <img alt="">
+</div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const root = document.documentElement;
+
+  /* ---------- MOTYW ---------- */
+  try { const t = localStorage.getItem('pl-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  $('#themeBtn').addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('pl-theme', root.dataset.theme); } catch (e) {}
+  });
+
+  /* ---------- MENU MOBILNE ---------- */
+  const nav = $('#nav'), menuBtn = $('#menuBtn');
+  menuBtn.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    menuBtn.querySelector('use').setAttribute('href', nav.classList.contains('open') ? '#i-x' : '#i-menu');
+  });
+
+  /* ---------- ZAKŁADKI (routing po #) ---------- */
+  const pages = $$('.page');
+  function route() {
+    const id = (location.hash || '#glowna').slice(1);
+    const target = pages.find(p => p.id === 'page-' + id) || $('#page-glowna');
+    pages.forEach(p => p.classList.toggle('show', p === target));
+    $$('.nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + target.id.slice(5)));
+    nav.classList.remove('open');
+    menuBtn.querySelector('use').setAttribute('href', '#i-menu');
+    window.scrollTo({ top: 0 });
+    if (target.id === 'page-rozwoj') updateProgress();
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ---------- PAGINACJA (4 na stronę) ---------- */
+  $$('[data-paginate]').forEach(list => {
+    const per = +list.dataset.paginate || 4;
+    const items = [...list.children];
+    const pager = list.nextElementSibling?.classList.contains('pager') ? list.nextElementSibling : list.parentElement.querySelector('.pager');
+    const pagesCount = Math.ceil(items.length / per);
+    let cur = 1;
+    const btn = (html, page, opts = {}) => {
+      const b = document.createElement('button');
+      b.innerHTML = html; b.disabled = !!opts.disabled;
+      if (opts.on) b.classList.add('on');
+      if (opts.label) b.setAttribute('aria-label', opts.label);
+      b.addEventListener('click', () => { show(page); list.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      return b;
+    };
+    function show(p) {
+      cur = Math.min(Math.max(1, p), pagesCount || 1);
+      items.forEach((el, i) => el.style.display = (i >= (cur - 1) * per && i < cur * per) ? '' : 'none');
+      if (!pager) return;
+      pager.innerHTML = '';
+      if (pagesCount <= 1) return;
+      pager.append(btn('<svg class="icon"><use href="#i-left"/></svg>', cur - 1, { disabled: cur === 1, label: 'Poprzednia' }));
+      for (let i = 1; i <= pagesCount; i++) pager.append(btn(i, i, { on: i === cur }));
+      pager.append(btn('<svg class="icon"><use href="#i-right"/></svg>', cur + 1, { disabled: cur === pagesCount, label: 'Następna' }));
+    }
+    show(1);
+  });
+
+  /* ---------- POSTĘP LINII 151 (liczony z list) ---------- */
+  function updateProgress() {
+    const done = $$('.done-list li').length;
+    const todo = $$('.todo-list li').length;
+    $('#cDone').textContent = done; $('#cTodo').textContent = todo;
+    $('#hDone').textContent = done; $('#hTodo').textContent = todo;
+    updateRoute();
+  }
+
+  /* ---------- PASEK TRASY (procent z data-progress w #routeCard) ---------- */
+  function updateRoute() {
+    const card = $('#routeCard'); if (!card) return;
+    let p = parseFloat(card.dataset.progress);
+    if (!isFinite(p)) p = 0;
+    p = Math.max(0, Math.min(100, p));
+    const fill = $('#routeFill');
+    fill.style.transition = 'none';
+    fill.style.strokeDashoffset = 100;
+    fill.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      fill.style.transition = 'stroke-dashoffset 1.4s var(--ease)';
+      fill.style.strokeDashoffset = 100 - p;
+    });
+  }
+
+  /* ---------- LIGHTBOX GALERII ---------- */
+  const lb = $('#lightbox');
+  $$('.gallery .card').forEach(c => c.addEventListener('click', () => {
+    const img = c.querySelector('.media img'); if (!img) return;
+    lb.querySelector('img').src = img.src; lb.classList.add('open');
+  }));
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+
+  /* ---------- PARTICLES (minimalistyczne) ---------- */
+  const cv = $('#particles'), ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, pts = [], dpr = 1;
+  const mouse = { x: -999, y: -999 };
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.min(70, Math.round(W * H / 22000));
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25,
+      r: Math.random() * 1.3 + .4
+    }));
+  }
+  function draw() {
+    const c = getComputedStyle(root).getPropertyValue('--particle').trim();
+    ctx.clearRect(0, 0, W, H);
+    const D = 120;
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      if (!reduce) { p.x += p.vx; p.y += p.vy; }
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+      const mdx = p.x - mouse.x, mdy = p.y - mouse.y, md = Math.hypot(mdx, mdy);
+      if (md < 100) { p.x += mdx / md * .6; p.y += mdy / md * .6; }
+      ctx.fillStyle = `rgba(${c},.55)`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      for (let j = i + 1; j < pts.length; j++) {
+        const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < D) {
+          ctx.strokeStyle = `rgba(${c},${(1 - d / D) * .14})`;
+          ctx.lineWidth = .6;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', resize);
+  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  addEventListener('mouseleave', () => { mouse.x = mouse.y = -999; });
+  resize(); draw();
+
+  route();
+})();
+</script>
+</body>
+</html>
