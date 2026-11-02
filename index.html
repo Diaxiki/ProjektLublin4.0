@@ -164,6 +164,82 @@ main{flex:1;padding:48px 0 72px}
 .mod h3{font-size:1.4rem;letter-spacing:-.01em}
 .mod p{color:var(--muted)}
 .mod .row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.mod .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mod .tag-chip{
+  font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  padding:4px 9px;border-radius:7px;border:1px solid var(--line-2);color:var(--muted);background:var(--bg);
+}
+.mod .date-meta{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}
+
+/* --- MODY: wyszukiwarka + filtry --- */
+.mod-toolbar{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
+.mod-search-wrap{position:relative}
+.mod-search-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted);pointer-events:none}
+.mod-search{
+  width:100%;padding:13px 16px 13px 44px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--text);font-size:1rem;font-family:inherit;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.mod-search:focus{border-color:var(--line-2);box-shadow:0 0 0 3px rgba(255,122,26,.12)}
+.mod-search::placeholder{color:var(--muted)}
+.mod-filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.mod-filters label{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;
+  border:1px solid var(--line);background:var(--card);font-size:.88rem;font-weight:500;
+  cursor:pointer;user-select:none;color:var(--muted);
+  transition:border-color .2s,background .2s,color .2s,box-shadow .2s;
+}
+.mod-filters label:hover{
+  border-color:var(--line-2);color:var(--text);background:var(--bg-2);
+}
+.mod-filters input{
+  appearance:none;-webkit-appearance:none;
+  width:15px;height:15px;margin:0;border-radius:4px;flex:none;
+  border:1.5px solid var(--line-2);background:var(--bg);
+  cursor:pointer;position:relative;
+  transition:border-color .2s,background .2s;
+}
+.mod-filters input:checked{
+  border-color:var(--text);background:var(--invert);
+}
+.mod-filters input:checked::after{
+  content:"";position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/10px no-repeat;
+}
+[data-theme="light"] .mod-filters input:checked::after{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E");
+}
+.mod-filters label.active{
+  border-color:var(--line-2);color:var(--text);background:var(--bg-2);
+}
+.mod-sort{margin-left:auto;display:flex;align-items:center;gap:8px}
+.mod-sort select{
+  padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);
+  color:var(--text);font-size:.88rem;font-family:inherit;cursor:pointer;outline:none;
+}
+.mod-count{font-size:.85rem;color:var(--muted);margin-bottom:14px}
+.mod-empty{text-align:center;padding:48px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
+
+/* dropdown pobierania */
+.dl-dropdown{position:relative}
+.dl-dropdown .btn{width:100%}
+.dl-menu{
+  display:none;position:absolute;right:0;bottom:calc(100% + 6px);min-width:220px;z-index:20;
+  background:var(--card);border:1px solid var(--line-2);border-radius:12px;
+  box-shadow:0 12px 40px rgba(0,0,0,.45);padding:6px;flex-direction:column;gap:2px;
+}
+.dl-dropdown.open .dl-menu{display:flex}
+.dl-menu a{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;
+  font-size:.9rem;color:var(--text);transition:background .15s;
+}
+.dl-menu a:hover{background:var(--bg-2)}
+.dl-menu a .icon{width:16px;height:16px;color:var(--muted)}
+
+@media (max-width:860px){
+  .mod-sort{margin-left:0;width:100%}
+  .mod-sort select{flex:1}
+}
 
 /* ================= DOWNLOAD ================= */
 .dl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
@@ -270,7 +346,16 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
 .route-stage img{display:block;width:100%;height:auto}
 .route-stage svg{position:absolute;inset:0;width:100%;height:100%}
 .route-point text{font-family:Arial,Helvetica,sans-serif;font-size:21px;font-weight:700;fill:#fff}
-#routeFill{stroke-dasharray:100 100;stroke-dashoffset:100;filter:drop-shadow(0 0 4px rgba(255,122,26,.8))}
+.route-line{stroke-dasharray:100 100;stroke-dashoffset:100}
+#routeRed{filter:drop-shadow(0 0 4px rgba(239,43,43,.8))}
+#routeOrange{filter:drop-shadow(0 0 4px rgba(255,122,26,.8))}
+#routeGreen{filter:drop-shadow(0 0 5px rgba(34,197,94,1)) drop-shadow(0 0 10px rgba(34,197,94,.7))}
+.route-legend{display:flex;flex-wrap:wrap;gap:12px 26px;padding:16px 20px;border-top:1px solid var(--line);background:var(--card)}
+.route-legend .item{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--text)}
+.route-legend .swatch{width:28px;height:5px;border-radius:3px;flex:none}
+.route-legend .swatch.green{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,.9)}
+.route-legend .swatch.orange{background:#ff7a1a;box-shadow:0 0 6px rgba(255,122,26,.9)}
+.route-legend .swatch.red{background:#ef2b2b;box-shadow:0 0 6px rgba(239,43,43,.9)}
 
 /* ================= GŁÓWNA: przycisk Wesprzyj ================= */
 .support-box{display:flex;justify-content:center;margin-top:28px}
@@ -336,6 +421,7 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
@@ -364,7 +450,7 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
 
     <nav class="nav" id="nav">
       <a href="#download"><svg class="icon"><use href="#i-download"/></svg>Download</a>
-      <a href="#mod"><svg class="icon"><use href="#i-mod"/></svg>MOD</a>
+      <a href="#mod"><svg class="icon"><use href="#i-mod"/></svg>MODY</a>
       <a href="#rozwoj"><svg class="icon"><use href="#i-dev"/></svg>Rozwój</a>
       <a href="#galeria"><svg class="icon"><use href="#i-image"/></svg>Galeria</a>
       <a href="#info"><svg class="icon"><use href="#i-info"/></svg>Info</a>
@@ -500,107 +586,44 @@ Trolejbus Ursus T70116 AI</h3>
 </section>
 
 <!-- =====================================================
-     MOD – kontenery na całą szerokość, 4 na stronę
-     Dodaj nowy mod kopiując blok <article class="card mod">.
+     MODY – dane z pliku mods.json
+     Aby dodać/edytować mod: edytuj mods.json (nie HTML).
+     Kategorie: malowanie | pojazd | blender | siec | ai | inne
+     downloads: tablica {label, url} – wiele opcji = dropdown.
      ===================================================== -->
 <section class="page" id="page-mod">
   <div class="page-head">
     <div class="eyebrow"><svg class="icon"><use href="#i-mod"/></svg>Modyfikacje</div>
-    <h1>MOD</h1>
-    <p>Modyfikacje stworzone przez społeczność.</p>
+    <h1>MODY</h1>
+    <p>Modyfikacje stworzone przez społeczność. Szukaj, filtruj i sortuj.</p>
   </div>
-  <div class="mods" data-paginate="4">
-   <article class="card mod">
-  <div class="media">
-    <a href="strona-modyfikacji.html">
-      <video src="image/F1HsbtP.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; display: block; object-fit: cover;"></video>
-    </a>
-  </div>
-  <div class="body">
-    <h3>Sieć trolejbusowa.</h3>
-    <p>Sieć trolejbusowa ze zwrotnicami, podwieszeniami i wskaźnikami LED poza zajezdnią.
-Poprawiony przebieg sieci i usunięte stare przewody z wybranych skrzyżowań.
-HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.
-.</p>
-    <div class="row">
-      <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Gumolit</div>
-      <a class="btn" href=" https://docs.google.com/uc?export=download&id=1lz8CTv5v6vP9B9DKi6xl839HoJsEwF2w"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
+
+  <div class="mod-toolbar">
+    <div class="mod-search-wrap">
+      <svg class="icon"><use href="#i-search"/></svg>
+      <input type="search" class="mod-search" id="modSearch" placeholder="Szukaj po nazwie, autorze, opisie…" autocomplete="off">
+    </div>
+    <div class="mod-filters" id="modFilters">
+      <!-- kategorie generowane z JSON -->
+    </div>
+    
+    <div class="mod-sort">
+      <label for="modSort">Sortuj:</label>
+      <select id="modSort">
+        <option value="date-desc">Najnowsze</option>
+        <option value="date-asc">Najstarsze</option>
+        <option value="title-asc">Nazwa A–Z</option>
+        <option value="title-desc">Nazwa Z–A</option>
+        <option value="author-asc">Autor A–Z</option>
+      </select>
     </div>
   </div>
-</article>
-    <article class="card mod">
-      <div class="media"> <img src="image/autosqn.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
-      <div class="body">
-        <h3>Malowanie AUTOSAN</h3>
-        <p>Na stronie znajdują 3 rózne malowania dla lublina.</p>
-        <div class="row">
-          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: 65Vajpej</div>
-          
-           <a class="btn" href="https://vajpej.github.io/omsi"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
-        </div>
-      </div>
-    </article>
-    <article class="card mod">
-      <div class="media"> <img src="image/image1.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
-      <div class="body">
-        <h3>Solaris Trolino 12MB III GEN</h3>
-        <p>Trolejbusy III generacji BETA.</p>
-        <div class="row">
-          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Solarisek_3813</div>
-          
-           <a class="btn" href="https://drive.google.com/file/d/1NbRT59n7K9zWYqrpJXO_Mq2cn5mULpot/view?usp=sharing
-"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
-        </div>
-      </div>
-    </article>
-    <article class="card mod">
-      <div class="media"><img src="image/mody.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
-      <div class="body">
-        <h3>Easyiomsi</h3>
-        <p>Po ponad 1.5roku wychodzi nowa wtyczka do blendera. Wtyczka została stworzona przeze mnie. Jako Pierwszy użytkownik tej oto wtyczki zaleca się  używać wersji blendera 3.0+. Jest po prostu lepiej zoptymalizowana.Wtyczka jest w fazie BETA błędy mogą cię pojawić  szczególnie przy funkcjach tools. Dodatek może zimportować pliki .o3d .cfg .sco tak samo przy eksporcie.W toolsach są funkcje szybkiego importu eksportu oraz automatycznego bake <--- (Bake jest w fazie eksperymentalnej).Wtyczka jest zrobiona pod optymalizacje i wygodę użytkownika.</p>
-        <div class="row">
-          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Zetii</div>
-          <a class="btn" href="https://cdn.discordapp.com/attachments/1566461705699987677/1566482089593798706/easyiomsi_1.0r_beta.zip?ex=6ae95c61&is=6ae80ae1&hm=bd0c7b65cb17de3447706813b4e816bda431d902e677aa767b95029de6ebbd3a&"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
-        </div>
-      </div>
-    </article>
-    <article class="card mod">
-      <div class="media"><img src="image/mody1.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
-      <div class="body">
-        <h3>Solaris Urbino 18 Plug - In HYBRID #2524-2535</h3>
-        <p>Myślę że sporo osób korzystało z malowania 2528 z lakierni O Buses, malowanie było ograniczone do jednego 2528. Teraz daje tutaj kontynuacje paczki do pierwszej, drugiej i części trzeciej transzy hybryd. (Wgrać do Texture/Rep FL/SU18_4D/Hybrid) 
-          <br> Klucz: iK5x6aObME-YtpKXLyI3Fg
-</p>
-        <div class="row">
-          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Der Omnibussimulator 2</div>
-          <a class="btn" href="https://mega.nz/folder/AAhSQYoI"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
-        </div>
-      </div>
-    </article>
-        <article class="card mod">
-      <div class="media"><img src="image/mody2.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
-      <div class="body">
-        <h3>Solaris Trollino 12 MB #3888-3891</h3>
-        <p>Klucz: _Fj6HgSgYvbPO53vWZdllw </p>
-        <div class="row">
-          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Der Omnibussimulator 2</div>
-          <a class="btn" href="https://mega.nz/folder/hYBSEKpB"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
-        </div>
-      </div>
-    </article>
-    <article class="card mod">
-      <div class="media"><img src="image/mody3.png" alt="Miniaturka wpisu" width="2013" height="48" style="width: 100%; height: 100%; display: block; object-fit: cover;"><div class="ph"><svg class="icon"><use href="#i-image"/></svg>Miejsce na zdjęcie</div></div>
-      <div class="body">
-        <h3>Solaris Urbino 12 electric 4028-4032</h3>
-        <p>Siema wydaję malowania dla elektryków 12m 4028-4032, czyli dla ostatniej tercji Solairsów 12 electric dla MPK Lublin, która została dostarczona w 2022 roku. Wyróżnia się ona tym, że posiada pulpit z zegarami cyfrowymi, tak jak np. 18 metrowe elektryki lub hybrydy. Malowania zostały wykonane przeze mnie i były wzorowane na malowaniach z Radomskiej lakierni, dokładnie dla wozów 4001-4006 </p>
-        <div class="row">
-          <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: Pro_ziomek</div>
-          <a class="btn" href="ttps://mega.nz/file/VokmRSAL#kJmfrN5lbPWMWDSkce2ZouQlYQUS0PwrYuvLtNrFpn8"><svg class="icon"><use href="#i-download"/></svg>Pobierz</a>
-        </div>
-      </div>
-    </article>
-  </div>
-  <div class="pager"></div>
+
+  <div class="mod-count" id="modCount"></div>
+  <div class="mods" id="modsList"></div>
+  <div class="pager" id="modsPager"></div>
+</section>
+
 </section>
 
 <!-- =====================================================
@@ -624,18 +647,33 @@ HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.
     <div class="progress-info">
       <span>Zrobione: <b id="cDone">0</b></span>
       <span>Do zrobienia: <b id="cTodo">0</b></span>
+      
     </div>
+    <div class="route-legend">
+  <div class="item"><span class="swatch green"></span>Ukończony odcinek</div>
+  <div class="item"><span class="swatch orange"></span>Odcinek do renowacji</div>
+  <div class="item"><span class="swatch red"></span>Odcinek z utworzonymi ulicami</div>
+</div>
   </div>
+  
 
-  <!-- MAPA TRASY – zdjęcie + pomarańczowy pasek postępu.
-       PROCENT USTAWIASZ TUTAJ: zmień liczbę w data-progress (0–100).
-       Pasek wypełnia się od Węglina do Abramowic.
+  <!-- MAPA TRASY – zdjęcie + 3 linie postępu (czerwona, pomarańczowa, zielona).
+       ZASIĘG KAŻDEJ LINII USTAWIASZ TUTAJ (0–100), od Węglina do Abramowic:
+         data-progress-red    = czerwona
+         data-progress-orange = pomarańczowa
+         data-progress-green  = zielona
+       Linie mają tę samą grubość i leżą na sobie w kolejności: czerwona (na dole),
+       pomarańczowa, zielona (na wierzchu) – każda kolejna nadpisuje poprzednią.
        Zdjęcie: image/Przebiegtrasy.jpg (możesz podmienić na swoje o tych samych proporcjach 1376x752). -->
-  <div class="card route-card" id="routeCard" data-progress="90">
+  <div class="card route-card" id="routeCard" data-progress-red="90" data-progress-orange="60" data-progress-green="30">
     <div class="route-stage">
       <img src="image/Przebiegtrasy.png" alt="Przebieg trasy linii 151 od Węglina do Abramowic" width="1376" height="752">
       <svg viewBox="0 0 1376 752" preserveAspectRatio="none" aria-hidden="true">
-        <path id="routeFill" pathLength="100" fill="none" stroke="#ff7a1a" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"
+        <path id="routeRed" class="route-line" pathLength="100" fill="none" stroke="#ef2b2b" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"
+          d="M152 621 L154 606 L175 565 L194 521 L219 472 L240 431 L265 392 L290 352 L311 310 L333 268 L355 226 L382 190 L429 180 L476 171 L521 162 L560 153 L583 143 L608 149 L620 157 L632 173 L644 186 L656 195 L668 200 L692 203.5 L728 208.5 L764 214.5 L800 223.5 L836 231.5 L848 233.5 L860 241 L872 257 L884 274.5 L896 291 L908 307.5 L932 332 L944 340.5 L956 346.5 L968 355 L980 363.5 L992 373 L1004 383.5 L1016 393.5 L1028 403.5 L1040 412.5 L1052 417.5 L1093 437 L1125 471 L1157 504 L1178 544 L1200 592 L1219 634 L1221 650"/>
+        <path id="routeOrange" class="route-line" pathLength="100" fill="none" stroke="#ff7a1a" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"
+          d="M152 621 L154 606 L175 565 L194 521 L219 472 L240 431 L265 392 L290 352 L311 310 L333 268 L355 226 L382 190 L429 180 L476 171 L521 162 L560 153 L583 143 L608 149 L620 157 L632 173 L644 186 L656 195 L668 200 L692 203.5 L728 208.5 L764 214.5 L800 223.5 L836 231.5 L848 233.5 L860 241 L872 257 L884 274.5 L896 291 L908 307.5 L932 332 L944 340.5 L956 346.5 L968 355 L980 363.5 L992 373 L1004 383.5 L1016 393.5 L1028 403.5 L1040 412.5 L1052 417.5 L1093 437 L1125 471 L1157 504 L1178 544 L1200 592 L1219 634 L1221 650"/>
+        <path id="routeGreen" class="route-line" pathLength="100" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"
           d="M152 621 L154 606 L175 565 L194 521 L219 472 L240 431 L265 392 L290 352 L311 310 L333 268 L355 226 L382 190 L429 180 L476 171 L521 162 L560 153 L583 143 L608 149 L620 157 L632 173 L644 186 L656 195 L668 200 L692 203.5 L728 208.5 L764 214.5 L800 223.5 L836 231.5 L848 233.5 L860 241 L872 257 L884 274.5 L896 291 L908 307.5 L932 332 L944 340.5 L956 346.5 L968 355 L980 363.5 L992 373 L1004 383.5 L1016 393.5 L1028 403.5 L1040 412.5 L1052 417.5 L1093 437 L1125 471 L1157 504 L1178 544 L1200 592 L1219 634 L1221 650"/>
 
         <!-- PUNKTY STAŁE – zawsze na początku i na końcu trasy, niezależnie od procentu -->
@@ -870,19 +908,21 @@ HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.
     updateRoute();
   }
 
-  /* ---------- PASEK TRASY (procent z data-progress w #routeCard) ---------- */
+  /* ---------- LINIE TRASY (zasięg z data-progress-red/orange/green w #routeCard) ---------- */
   function updateRoute() {
     const card = $('#routeCard'); if (!card) return;
-    let p = parseFloat(card.dataset.progress);
-    if (!isFinite(p)) p = 0;
-    p = Math.max(0, Math.min(100, p));
-    const fill = $('#routeFill');
-    fill.style.transition = 'none';
-    fill.style.strokeDashoffset = 100;
-    fill.getBoundingClientRect();
-    requestAnimationFrame(() => {
-      fill.style.transition = 'stroke-dashoffset 1.4s var(--ease)';
-      fill.style.strokeDashoffset = 100 - p;
+    [['#routeRed', 'progressRed'], ['#routeOrange', 'progressOrange'], ['#routeGreen', 'progressGreen']].forEach(([sel, key]) => {
+      let p = parseFloat(card.dataset[key]);
+      if (!isFinite(p)) p = 0;
+      p = Math.max(0, Math.min(100, p));
+      const fill = $(sel);
+      fill.style.transition = 'none';
+      fill.style.strokeDashoffset = 100;
+      fill.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        fill.style.transition = 'stroke-dashoffset 1.4s var(--ease)';
+        fill.style.strokeDashoffset = 100 - p;
+      });
     });
   }
 
@@ -939,6 +979,209 @@ HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.
   addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
   addEventListener('mouseleave', () => { mouse.x = mouse.y = -999; });
   resize(); draw();
+
+  /* ---------- MODY (JSON) ---------- */
+  /* W index.html ZASTĄP cały dotychczasowy blok od "MODY (JSON)" aż do wywołania loadMods();
+     tym plikiem. Linię route(); pod spodem zostaw bez zmian. */
+  const MODS_PER_PAGE = 4;
+  let modsData = { categories: [], mods: [] };
+  let modsFiltered = [];
+  let modsPage = 1;
+  const catLabel = {};
+
+  const esc = (s) => String(s ?? '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+  /* Data -> liczba (ms). Obsługuje RRRR-MM-DD oraz DD.MM.RRRR */
+  const toTime = (s) => {
+    if (!s) return 0;
+    s = String(s).trim();
+    let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+    m = s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+    if (m) return Date.UTC(+m[3], +m[2] - 1, +m[1]);
+    return 0;
+  };
+
+  const fmtDate = (s) => {
+    const t = toTime(s);
+    if (!t) return '—';
+    const d = new Date(t);
+    const p = (n) => String(n).padStart(2, '0');
+    return `${p(d.getUTCDate())}.${p(d.getUTCMonth() + 1)}.${d.getUTCFullYear()}`;
+  };
+
+  function buildFilters() {
+    const box = $('#modFilters');
+    if (!box) return;
+    box.innerHTML = '';
+    modsData.categories.forEach(c => {
+      catLabel[c.id] = c.label;
+      const lab = document.createElement('label');
+      lab.innerHTML = `<input type="checkbox" value="${esc(c.id)}"><span>${esc(c.label)}</span>`;
+      lab.addEventListener('change', () => {
+        lab.classList.toggle('active', lab.querySelector('input').checked);
+        applyModsFilter();
+      });
+      box.append(lab);
+    });
+  }
+
+  function mediaHtml(m) {
+    if (!m) return '<div class="ph"><svg class="icon"><use href="#i-image"/></svg>Brak podglądu</div>';
+    if (m.type === 'video') {
+      return `<video src="${esc(m.src)}" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block"></video>`;
+    }
+    return `<img src="${esc(m.src)}" alt="${esc(m.alt || '')}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+  }
+
+  function downloadsHtml(downloads) {
+    const list = Array.isArray(downloads) ? downloads.filter(d => d && d.url) : [];
+    if (!list.length) return '';
+    if (list.length === 1) {
+      return `<a class="btn" href="${esc(list[0].url)}" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg>${esc(list[0].label || 'Pobierz')}</a>`;
+    }
+    const items = list.map(d =>
+      `<a href="${esc(d.url)}" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg>${esc(d.label || 'Pobierz')}</a>`
+    ).join('');
+    return `<div class="dl-dropdown">
+      <button type="button" class="btn dl-toggle"><svg class="icon"><use href="#i-download"/></svg>Pobierz ▾</button>
+      <div class="dl-menu">${items}</div>
+    </div>`;
+  }
+
+  function renderModsPage() {
+    const list = $('#modsList');
+    const pager = $('#modsPager');
+    const countEl = $('#modCount');
+    if (!list) return;
+
+    const total = modsFiltered.length;
+    const pages = Math.max(1, Math.ceil(total / MODS_PER_PAGE));
+    modsPage = Math.min(Math.max(1, modsPage), pages);
+    const start = (modsPage - 1) * MODS_PER_PAGE;
+    const slice = modsFiltered.slice(start, start + MODS_PER_PAGE);
+
+    if (countEl) {
+      countEl.textContent = total
+        ? `Wyświetlono ${slice.length} z ${total} mod${total === 1 ? 'a' : total < 5 ? 'y' : 'ów'}`
+        : 'Brak wyników dla wybranych filtrów';
+    }
+
+    if (!slice.length) {
+      list.innerHTML = '<div class="mod-empty">Nic nie znaleziono. Zmień wyszukiwanie lub filtry.</div>';
+      if (pager) pager.innerHTML = '';
+      return;
+    }
+
+    list.innerHTML = slice.map(mod => {
+      const tags = (mod.categories || []).map(id =>
+        `<span class="tag-chip">${esc(catLabel[id] || id)}</span>`
+      ).join('');
+      return `<article class="card mod" data-id="${esc(mod.id)}">
+        <div class="media">${mediaHtml(mod.media)}</div>
+        <div class="body">
+          <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(mod.date))}</div>
+          <h3>${esc(mod.title)}</h3>
+          <p>${esc(mod.description)}</p>
+          <div class="tags">${tags}</div>
+          <div class="row">
+            <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: ${esc(mod.author)}</div>
+            ${downloadsHtml(mod.downloads)}
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+
+    list.querySelectorAll('.dl-dropdown').forEach(dd => {
+      const btn = dd.querySelector('.dl-toggle');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        $$('.dl-dropdown.open').forEach(o => { if (o !== dd) o.classList.remove('open'); });
+        dd.classList.toggle('open');
+      });
+    });
+
+    if (!pager) return;
+    pager.innerHTML = '';
+    if (pages <= 1) return;
+    const mk = (html, page, opts = {}) => {
+      const b = document.createElement('button');
+      b.innerHTML = html;
+      b.disabled = !!opts.disabled;
+      if (opts.on) b.classList.add('on');
+      if (opts.label) b.setAttribute('aria-label', opts.label);
+      b.addEventListener('click', () => {
+        modsPage = page;
+        renderModsPage();
+        list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      return b;
+    };
+    pager.append(mk('<svg class="icon"><use href="#i-left"/></svg>', modsPage - 1, { disabled: modsPage === 1, label: 'Poprzednia' }));
+    for (let i = 1; i <= pages; i++) pager.append(mk(String(i), i, { on: i === modsPage }));
+    pager.append(mk('<svg class="icon"><use href="#i-right"/></svg>', modsPage + 1, { disabled: modsPage === pages, label: 'Następna' }));
+  }
+
+  function applyModsFilter() {
+    const q = ($('#modSearch')?.value || '').trim().toLowerCase();
+    const checked = $$('#modFilters input:checked').map(i => i.value);
+    const sort = $('#modSort')?.value || 'date-desc';
+
+    modsFiltered = modsData.mods.filter(m => {
+      if (checked.length) {
+        const cats = m.categories || [];
+        if (!checked.some(c => cats.includes(c))) return false;   // LUB; zmień some -> every dla ORAZ
+      }
+      if (!q) return true;
+      const hay = [m.title, m.author, m.description, ...(m.categories || []).map(c => catLabel[c] || c)]
+        .join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+
+    const byTitle = (a, b) => (a.title || '').localeCompare(b.title || '', 'pl');
+    const byIndex = (a, b) => a._i - b._i;   // remis = kolejność z mods.json (wyżej w pliku = wyżej na liście)
+
+    modsFiltered.sort((a, b) => {
+      switch (sort) {
+        case 'date-desc':  return (toTime(b.date) - toTime(a.date)) || byIndex(a, b);
+        case 'date-asc':   return (toTime(a.date) - toTime(b.date)) || byIndex(a, b);
+        case 'title-asc':  return byTitle(a, b) || byIndex(a, b);
+        case 'title-desc': return byTitle(b, a) || byIndex(a, b);
+        case 'author-asc': return (a.author || '').localeCompare(b.author || '', 'pl') || byIndex(a, b);
+        default:           return byIndex(a, b);
+      }
+    });
+
+    modsPage = 1;
+    renderModsPage();
+  }
+
+  document.addEventListener('click', () => $$('.dl-dropdown.open').forEach(d => d.classList.remove('open')));
+
+  async function loadMods() {
+    try {
+      const res = await fetch('mods.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (!data || !Array.isArray(data.mods)) throw new Error('Invalid JSON');
+      modsData = {
+        categories: Array.isArray(data.categories) ? data.categories : [],
+        mods: data.mods.filter(m => m && m.id && m.title).map((m, i) => ({ ...m, _i: i }))
+      };
+      buildFilters();
+      applyModsFilter();
+    } catch (err) {
+      console.error('mods.json:', err);
+      const list = $('#modsList');
+      if (list) list.innerHTML = '<div class="mod-empty">Nie udało się wczytać listy modów (mods.json).</div>';
+    }
+  }
+
+  $('#modSearch')?.addEventListener('input', () => applyModsFilter());
+  $('#modSort')?.addEventListener('change', () => applyModsFilter());
+  loadMods();
 
   route();
 })();
