@@ -15,6 +15,7 @@
       "date": "2026-11-02",
       "categories": ["pojazd"],
       "description": "Trolejbusy III generacji BETA.",
+      "description_en": "Third-generation trolleybuses, BETA.",
       "media": {
         "type": "image",
         "src": "image/image1.png",
@@ -23,7 +24,9 @@
       "downloads": [
         {
           "label": "Aktualna wersja (Google Drive)",
-          "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing"
+          "label_en": "Current version (Google Drive)",
+          "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing",
+          "date": "2026-11-02"
         }
       ]
     },
@@ -34,6 +37,7 @@
       "date": "2025-11-01",
       "categories": ["siec"],
       "description": "Sieć trolejbusowa ze zwrotnicami, podwieszeniami i wskaźnikami LED poza zajezdnią. Poprawiony przebieg sieci i usunięte stare przewody z wybranych skrzyżowań. HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.",
+      "description_en": "Trolleybus network with switches, suspensions and LED indicators outside the depot. Corrected network routing and old wires removed from selected intersections. HOFs, announcements and the MEGA AI group using the Trollino 18.",
       "media": {
         "type": "video",
         "src": "image/F1HsbtP.mp4",
@@ -42,7 +46,9 @@
       "downloads": [
         {
           "label": "Aktualna wersja",
-          "url": "https://docs.google.com/uc?export=download&id=1lz8CTv5v6vP9B9DKi6xl839HoJsEwF2w"
+          "label_en": "Current version",
+          "url": "https://docs.google.com/uc?export=download&id=1lz8CTv5v6vP9B9DKi6xl839HoJsEwF2w",
+          "date": "2025-11-01"
         }
       ]
     },
@@ -53,6 +59,7 @@
       "date": "2025-11-01",
       "categories": ["malowanie"],
       "description": "Na stronie znajdują 3 różne malowania dla Lublina.",
+      "description_en": "The page contains 3 different liveries for Lublin.",
       "media": {
         "type": "image",
         "src": "image/autosqn.png",
@@ -61,7 +68,9 @@
       "downloads": [
         {
           "label": "Pobierz ze strony autora",
-          "url": "https://vajpej.github.io/omsi"
+          "label_en": "Download from the author's website",
+          "url": "https://vajpej.github.io/omsi",
+          "date": "2025-11-01"
         }
       ]
     },
@@ -72,6 +81,7 @@
       "date": "2025-11-01",
       "categories": ["blender", "inne"],
       "description": "Po ponad 1,5 roku wychodzi nowa wtyczka do Blendera. Wtyczka została stworzona przeze mnie. Jako pierwszy użytkownik tej oto wtyczki zaleca się używać wersji Blendera 3.0+. Jest po prostu lepiej zoptymalizowana. Wtyczka jest w fazie BETA – błędy mogą się pojawić szczególnie przy funkcjach tools. Dodatek może importować pliki .o3d .cfg .sco tak samo przy eksporcie. W toolsach są funkcje szybkiego importu/eksportu oraz automatycznego bake (bake jest w fazie eksperymentalnej). Wtyczka jest zrobiona pod optymalizację i wygodę użytkownika.",
+      "description_en": "After more than 1.5 years, a new Blender add-on is out. The add-on was created by me. As the first user of this add-on, it is recommended to use Blender 3.0+, as it is simply better optimized. The add-on is in BETA – bugs may appear, especially in the tools functions. The add-on can import .o3d, .cfg and .sco files, and likewise export them. The tools include quick import/export functions and automatic bake (bake is experimental). The add-on is built for optimization and user convenience.",
       "media": {
         "type": "image",
         "src": "image/mody.png",
@@ -80,7 +90,9 @@
       "downloads": [
         {
           "label": "Wersja 1.0r BETA",
-          "url": "https://cdn.discordapp.com/attachments/1566461705699987677/1566482089593798706/easyiomsi_1.0r_beta.zip?ex=6ae95c61&is=6ae80ae1&hm=bd0c7b65cb17de3447706813b4e816bda431d902e677aa767b95029de6ebbd3a&"
+          "label_en": "Version 1.0r BETA",
+          "url": "https://cdn.discordapp.com/attachments/1566461705699987677/1566482089593798706/easyiomsi_1.0r_beta.zip?ex=6ae95c61&is=6ae80ae1&hm=bd0c7b65cb17de3447706813b4e816bda431d902e677aa767b95029de6ebbd3a&",
+          "date": "2025-11-01"
         }
       ]
     },
@@ -91,6 +103,7 @@
       "date": "2025-10-18",
       "categories": ["malowanie"],
       "description": "Kontynuacja paczki malowań do pierwszej, drugiej i części trzeciej transzy hybryd. (Wgrać do Texture/Rep FL/SU18_4D/Hybrid). Klucz: iK5x6aObME-YtpKXLyI3Fg",
+      "description_en": "Continuation of the livery pack for the first, second and part of the third batch of hybrids. (Install into Texture/Rep FL/SU18_4D/Hybrid). Key: iK5x6aObME-YtpKXLyI3Fg",
       "media": {
         "type": "image",
         "src": "image/mody1.png",
@@ -99,7 +112,9 @@
       "downloads": [
         {
           "label": "Aktualna paczka (MEGA)",
-          "url": "https://mega.nz/folder/AAhSQYoI"
+          "label_en": "Current pack (MEGA)",
+          "url": "https://mega.nz/folder/AAhSQYoI",
+          "date": "2025-10-18"
         }
       ]
     },
@@ -110,6 +125,7 @@
       "date": "2025-10-17",
       "categories": ["malowanie"],
       "description": "Malowania Solaris Trollino 12 MB #3888-3891. Klucz: _Fj6HgSgYvbPO53vWZdllw",
+      "description_en": "Liveries for Solaris Trollino 12 MB #3888-3891. Key: _Fj6HgSgYvbPO53vWZdllw",
       "media": {
         "type": "image",
         "src": "image/mody2.png",
@@ -118,7 +134,9 @@
       "downloads": [
         {
           "label": "Aktualna paczka (MEGA)",
-          "url": "https://mega.nz/folder/hYBSEKpB"
+          "label_en": "Current pack (MEGA)",
+          "url": "https://mega.nz/folder/hYBSEKpB",
+          "date": "2025-10-17"
         }
       ]
     },
@@ -129,6 +147,7 @@
       "date": "2025-10-06",
       "categories": ["malowanie"],
       "description": "Malowania dla elektryków 12 m 4028-4032 (ostatnia tercja Solarisów 12 electric dla MPK Lublin, dostawa 2022). Posiadają pulpit z zegarami cyfrowymi. Malowania wzorowane na Radomskiej lakierni (wozy 4001-4006).",
+      "description_en": "Liveries for the 12 m electric buses 4028-4032 (the last third of the Solaris 12 electric buses for MPK Lublin, delivered in 2022). They have a dashboard with digital gauges. Liveries modeled on the Radom paint shop (vehicles 4001-4006).",
       "media": {
         "type": "image",
         "src": "image/mody3.png",
@@ -137,7 +156,9 @@
       "downloads": [
         {
           "label": "Aktualna paczka (MEGA)",
-          "url": "https://mega.nz/file/VokmRSAL#kJmfrN5lbPWMWDSkce2ZouQlYQUS0PwrYuvLtNrFpn8"
+          "label_en": "Current pack (MEGA)",
+          "url": "https://mega.nz/file/VokmRSAL#kJmfrN5lbPWMWDSkce2ZouQlYQUS0PwrYuvLtNrFpn8",
+          "date": "2025-10-06"
         }
       ]
     }
