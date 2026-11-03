@@ -876,6 +876,25 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     nav.classList.toggle('open');
     menuBtn.querySelector('use').setAttribute('href', nav.classList.contains('open') ? '#i-x' : '#i-menu');
   });
+  // Dodaj gdzieś w skrypcie (np. po obsłudze themeBtn)
+
+const langBtn = $('#langBtn');
+const langLabel = $('#langLabel');
+let currentLang = localStorage.getItem('pl-lang') || 'pl';
+
+function setLang(lang) {
+  currentLang = lang;
+  langLabel.textContent = lang === 'pl' ? 'EN' : 'PL';
+  document.documentElement.lang = lang;
+  // tutaj dodaj logikę tłumaczeń (np. data-i18n)
+  try { localStorage.setItem('pl-lang', lang); } catch(e) {}
+}
+
+langBtn.addEventListener('click', () => {
+  setLang(currentLang === 'pl' ? 'en' : 'pl');
+});
+
+setLang(currentLang); // ustawienie przy starcie
 
   const pages = $$('.page');
   function route() {
