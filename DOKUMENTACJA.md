@@ -7,9 +7,7 @@ Statyczna strona (jeden plik `index.html` + `mods.json` + katalog `image/`) dla 
 ```
 /
 ├── index.html          – cała strona (HTML + CSS + JS)
-├── mods.json           – lista modów (edytujesz tylko ten plik)
-├── robots.txt          – (zalecane) reguły dla robotów
-├── sitemap.xml         – (zalecane) mapa strony
+├── mods.json           – lista modów         
 └── image/
     ├── Metaliczny_logo_Projekt_Lublin.png
     ├── Nowa_miniatruka1.png, image.png, Bogdan.png   – miniatury wpisów
@@ -18,7 +16,6 @@ Statyczna strona (jeden plik `index.html` + `mods.json` + katalog `image/`) dla 
     └── Lublin/                                       – 4 zdjęcia w zakładce Info
 ```
 
-Pliki graficzne i wideo do modów podajesz w `mods.json` jako ścieżki względne, np. `image/mody/autobus.png`.
 
 ## 2. Zakładki (routing)
 
@@ -116,7 +113,7 @@ Każde zdjęcie to `<figure class="card">` w `.gallery` z obrazem, tytułem (`h3
 
 ## 8. Info
 
-- Mapa Google to `<iframe>` w `.map`. Jeśli masz klucz Google Maps Embed API, możesz zmienić `src` na `https://www.google.com/maps/embed/v1/place?key=TWÓJ_KLUCZ&q=Lublin,Polska`.
+- Mapa Google to `<iframe>` w `.map`. Jeśli masz klucz Google Maps Embed API, możesz zmienić `src` na `https://maps.google.com/maps?q=Lublin,%20Polska&z=12&output=embed`.
 - Statystyki miasta edytujesz w blokach `.stat`.
 - Cztery zdjęcia w `.photos` – podmieniasz ścieżki w `src`. Gdy obrazu brakuje, pokazuje się placeholder.
 
@@ -135,18 +132,10 @@ W `<head>` znajdują się:
 
 **Do zrobienia po wdrożeniu:**
 
-1. Zamień `https://TWOJA-DOMENA.pl` na prawdziwy adres (w `canonical`, `og:url`, `og:image`, `twitter:image` i JSON-LD).
+1. Zamień `https://projektlublin.github.io/ProjektLublin/` na prawdziwy adres (w `canonical`, `og:url`, `og:image`, `twitter:image` i JSON-LD).
 2. Obraz `og:image` powinien mieć bezwzględny adres i najlepiej 1200×630 px (np. `image/og-cover.png`).
 3. Dodaj `robots.txt` i `sitemap.xml` w katalogu głównym i zgłoś stronę w Google Search Console.
 4. Ponieważ zakładki działają na haszu (`#...`), Google indeksuje wyłącznie jedną stronę. Osobne indeksowanie podstron wymaga rozdzielenia ich na osobne pliki HTML.
-
-Przykładowy `robots.txt`:
-
-```
-User-agent: *
-Allow: /
-Sitemap: https://TWOJA-DOMENA.pl/sitemap.xml
-```
 
 ## 11. Bezpieczeństwo
 
