@@ -147,6 +147,7 @@ main{flex:1;padding:48px 0 72px}
 .page{display:none;animation:fade .45s var(--ease)}
 .page.show{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ovl{from{opacity:0}to{opacity:1}}
 .page-head{margin-bottom:32px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .page-head h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.08;letter-spacing:-.03em}
@@ -211,18 +212,50 @@ a.post{display:block;color:inherit;cursor:pointer}
 .support .btn .icon{color:var(--accent)}
 
 .mods{display:flex;flex-direction:column;gap:22px}
-.mod{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);width:100%}
+.mod{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);width:100%;cursor:pointer}
+.mod:focus-visible{outline:2px solid var(--line-2);outline-offset:3px}
 .mod .media{aspect-ratio:auto;min-height:220px;height:100%}
 .mod .body{padding:24px 26px;display:flex;flex-direction:column;gap:10px}
 .mod h3{font-size:1.4rem;letter-spacing:-.01em}
 .mod p{color:var(--muted)}
 .mod .row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
-.mod .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.mod .tag-chip{
+.mod .tags,.mm-body .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mod .tag-chip,.mm-body .tag-chip{
   font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
   padding:4px 9px;border-radius:7px;border:1px solid var(--line-2);color:var(--muted);background:var(--bg);
 }
-.mod .date-meta{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}
+.mod .date-meta,.mm-body .date-meta{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}
+.mod .mod-open{padding:10px 16px}
+
+.mod-modal{
+  position:fixed;inset:0;z-index:120;display:none;place-items:center;padding:24px;
+  background:rgba(0,0,0,.55);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.mod-modal.open{display:grid;animation:ovl .25s var(--ease)}
+.mod-modal-box{
+  position:relative;width:100%;max-width:560px;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);
+  overflow-y:auto;box-shadow:0 20px 70px rgba(0,0,0,.6);animation:fade .3s var(--ease);
+}
+.mod-modal-close{position:absolute;top:12px;right:12px;z-index:3;background:rgba(0,0,0,.6);color:#fff;border-color:#444}
+.mod-modal-close:hover{background:rgba(0,0,0,.85)}
+.mod-modal .media{aspect-ratio:16/9;min-height:0}
+.mm-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px}
+.mm-body h3{font-size:1.5rem;letter-spacing:-.01em}
+.mm-body p{color:var(--muted);font-size:.95rem}
+.mm-versions{margin-top:8px}
+.mm-versions h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.mm-list{display:flex;flex-direction:column;gap:8px}
+.mm-item{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+  background:var(--bg);transition:border-color .2s,background .2s,transform .2s var(--ease);
+}
+.mm-item:hover{border-color:var(--line-2);background:var(--bg-2);transform:translateY(-1px)}
+.mm-item .icon{width:18px;height:18px;color:var(--muted)}
+.mm-item .lbl{flex:1;min-width:0;font-size:.93rem;font-weight:500;word-break:break-word}
+.mm-item .sub{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
+.mm-empty{color:var(--muted);font-size:.9rem}
+body.modal-open{overflow:hidden}
 
 .mod-toolbar{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
 .mod-search-wrap{position:relative}
@@ -440,6 +473,9 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   .arch{grid-template-columns:1fr!important}
   .foot{flex-direction:column;align-items:flex-start}
   .mod .body,.about,.progress-card{padding:20px}
+  .mod-modal{padding:12px}
+  .mod-modal-box{max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}
+  .mm-body{padding:18px 18px 20px}
 }
 @media (max-width:380px){
   .logo{font-size:1rem}
@@ -795,14 +831,14 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
 
   <div class="team">
     <div class="member">
-      <div class="avatar"><img loading="lazy" decoding="async" src="image/avatar 1.png" alt="Awatar 1"></div>
+      <div class="avatar"><img loading="lazy" decoding="async" src="image/avatar1.jpg" alt="Awatar 1"></div>
       <div class="box">
         <h3>Główny twórca Projektu Lublin</h3>
         <p>Edytor, Blender</p>
       </div>
     </div>
     <div class="member">
-      <div class="avatar"><img loading="lazy" decoding="async" src="image/avatar 2.png" alt="Awatar 2"></div>
+      <div class="avatar"><img loading="lazy" decoding="async" src="image/avatar2.jpg" alt="Awatar 2"></div>
       <div class="box">
         <h3>Główny twórca Projektu Lublin</h3>
         <p>Edytor, Blender, PR</p>
@@ -859,11 +895,21 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   <img alt="">
 </div>
 
+<div class="mod-modal" id="modModal" role="dialog" aria-modal="true" aria-labelledby="modModalTitle">
+  <div class="card mod-modal-box">
+    <button type="button" class="icon-btn mod-modal-close" aria-label="Zamknij"><svg class="icon"><use href="#i-x"/></svg></button>
+    <div id="modModalBody"></div>
+  </div>
+</div>
+
 <script>
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const root = document.documentElement;
+
+  let currentLang = 'pl';
+  const L = (pl, en) => (currentLang === 'en' ? en : pl);
 
   try { const t = localStorage.getItem('pl-theme'); if (t === 'dark' || t === 'light') root.dataset.theme = t; } catch (e) {}
   $('#themeBtn').addEventListener('click', () => {
@@ -876,25 +922,6 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     nav.classList.toggle('open');
     menuBtn.querySelector('use').setAttribute('href', nav.classList.contains('open') ? '#i-x' : '#i-menu');
   });
-  // Dodaj gdzieś w skrypcie (np. po obsłudze themeBtn)
-
-const langBtn = $('#langBtn');
-const langLabel = $('#langLabel');
-let currentLang = localStorage.getItem('pl-lang') || 'pl';
-
-function setLang(lang) {
-  currentLang = lang;
-  langLabel.textContent = lang === 'pl' ? 'EN' : 'PL';
-  document.documentElement.lang = lang;
-  // tutaj dodaj logikę tłumaczeń (np. data-i18n)
-  try { localStorage.setItem('pl-lang', lang); } catch(e) {}
-}
-
-langBtn.addEventListener('click', () => {
-  setLang(currentLang === 'pl' ? 'en' : 'pl');
-});
-
-setLang(currentLang); // ustawienie przy starcie
 
   const pages = $$('.page');
   function route() {
@@ -904,6 +931,7 @@ setLang(currentLang); // ustawienie przy starcie
     $$('.nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + target.id.slice(5)));
     nav.classList.remove('open');
     menuBtn.querySelector('use').setAttribute('href', '#i-menu');
+    closeMod();
     window.scrollTo({ top: 0 });
     if (target.id === 'page-rozwoj') updateProgress();
   }
@@ -1069,20 +1097,11 @@ setLang(currentLang); // ustawienie przy starcie
     return `<img loading="lazy" decoding="async" src="${esc(m.src)}" alt="${esc(m.alt || '')}" style="width:100%;height:100%;object-fit:cover;display:block">`;
   }
 
-  function downloadsHtml(downloads) {
-    const list = Array.isArray(downloads) ? downloads.filter(d => d && d.url) : [];
-    if (!list.length) return '';
-    if (list.length === 1) {
-      return `<a class="btn" href="${esc(list[0].url)}" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg>${esc(list[0].label || 'Pobierz')}</a>`;
-    }
-    const items = list.map(d =>
-      `<a href="${esc(d.url)}" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg>${esc(d.label || 'Pobierz')}</a>`
-    ).join('');
-    return `<div class="dl-dropdown">
-      <button type="button" class="btn dl-toggle"><svg class="icon"><use href="#i-download"/></svg>Pobierz ▾</button>
-      <div class="dl-menu">${items}</div>
-    </div>`;
-  }
+  const modDesc = (m) => (currentLang === 'en' && m.description_en) ? m.description_en : m.description;
+  const dlLabel = (d) => (currentLang === 'en' && d.label_en) ? d.label_en : (d.label || L('Pobierz', 'Download'));
+  const tagsHtml = (mod) => (mod.categories || []).map(id =>
+    `<span class="tag-chip">${esc(catLabel[id] || id)}</span>`
+  ).join('');
 
   function renderModsPage() {
     const list = $('#modsList');
@@ -1098,43 +1117,32 @@ setLang(currentLang); // ustawienie przy starcie
 
     if (countEl) {
       countEl.textContent = total
-        ? `Wyświetlono ${slice.length} z ${total} mod${total === 1 ? 'a' : total < 5 ? 'y' : 'ów'}`
-        : 'Brak wyników dla wybranych filtrów';
+        ? L(`Wyświetlono ${slice.length} z ${total} mod${total === 1 ? 'a' : total < 5 ? 'y' : 'ów'}`,
+            `Showing ${slice.length} of ${total} mod${total === 1 ? '' : 's'}`)
+        : L('Brak wyników dla wybranych filtrów', 'No results for the selected filters');
     }
 
     if (!slice.length) {
-      list.innerHTML = '<div class="mod-empty">Nic nie znaleziono. Zmień wyszukiwanie lub filtry.</div>';
+      list.innerHTML = `<div class="mod-empty">${L('Nic nie znaleziono. Zmień wyszukiwanie lub filtry.', 'Nothing found. Change your search or filters.')}</div>`;
       if (pager) pager.innerHTML = '';
       return;
     }
 
     list.innerHTML = slice.map(mod => {
-      const tags = (mod.categories || []).map(id =>
-        `<span class="tag-chip">${esc(catLabel[id] || id)}</span>`
-      ).join('');
-      return `<article class="card mod" data-id="${esc(mod.id)}">
+      return `<article class="card mod" data-id="${esc(mod.id)}" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="media">${mediaHtml(mod.media)}</div>
         <div class="body">
           <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(mod.date))}</div>
           <h3>${esc(mod.title)}</h3>
-          <p>${esc(mod.description)}</p>
-          <div class="tags">${tags}</div>
+          <p>${esc(modDesc(mod))}</p>
+          <div class="tags">${tagsHtml(mod)}</div>
           <div class="row">
             <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: ${esc(mod.author)}</div>
-            ${downloadsHtml(mod.downloads)}
+            <span class="btn ghost mod-open"><svg class="icon"><use href="#i-download"/></svg>Pobierz</span>
           </div>
         </div>
       </article>`;
     }).join('');
-
-    list.querySelectorAll('.dl-dropdown').forEach(dd => {
-      const btn = dd.querySelector('.dl-toggle');
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        $$('.dl-dropdown.open').forEach(o => { if (o !== dd) o.classList.remove('open'); });
-        dd.classList.toggle('open');
-      });
-    });
 
     if (!pager) return;
     pager.innerHTML = '';
@@ -1168,7 +1176,7 @@ setLang(currentLang); // ustawienie przy starcie
         if (!checked.some(c => cats.includes(c))) return false;
       }
       if (!q) return true;
-      const hay = [m.title, m.author, m.description, ...(m.categories || []).map(c => catLabel[c] || c)]
+      const hay = [m.title, m.author, m.description, m.description_en, ...(m.categories || []).map(c => catLabel[c] || c)]
         .join(' ').toLowerCase();
       return hay.includes(q);
     });
@@ -1191,7 +1199,88 @@ setLang(currentLang); // ustawienie przy starcie
     renderModsPage();
   }
 
-  document.addEventListener('click', () => $$('.dl-dropdown.open').forEach(d => d.classList.remove('open')));
+  /* ---------- Okno (modal) modyfikacji ---------- */
+  const modal = $('#modModal');
+  const modalBody = $('#modModalBody');
+  let openModId = null, lastFocus = null;
+
+  // Kolejność: najpierw aktualne wersje, potem archiwalne (archive:true);
+  // w każdej grupie od najnowszej do najstarszej wg "date", a bez daty wg kolejności w JSON.
+  function sortedDownloads(mod) {
+    const all = (mod.downloads || []).map((d, i) => ({ ...d, _i: i }));
+    const cmp = (a, b) => (toTime(b.date) - toTime(a.date)) || (a._i - b._i);
+    const cur = all.filter(d => !d.archive).sort(cmp);
+    const arc = all.filter(d => d.archive).sort(cmp);
+    return [...cur, ...arc];
+  }
+
+  function renderModal(mod) {
+    const dls = sortedDownloads(mod);
+    const items = dls.map((d, i) => {
+      const badge = d.archive
+        ? '<span class="tag-chip">Archiwalna</span>'
+        : (i === 0 && dls.length > 1 ? '<span class="tag-chip">Najnowsza</span>' : '');
+      const sub = d.date ? `<span class="sub">${esc(fmtDate(d.date))}</span>` : '';
+      return `<a class="mm-item" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon"><use href="#i-download"/></svg>
+        <span class="lbl">${esc(dlLabel(d))}${sub}</span>
+        ${badge}
+      </a>`;
+    }).join('');
+
+    modalBody.innerHTML = `<div class="media">${mediaHtml(mod.media)}</div>
+      <div class="mm-body">
+        <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(mod.date))}</div>
+        <h3 id="modModalTitle">${esc(mod.title)}</h3>
+        <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: ${esc(mod.author)}</div>
+        <div class="tags">${tagsHtml(mod)}</div>
+        <p>${esc(modDesc(mod))}</p>
+        <div class="mm-versions">
+          <h4>Wersje do pobrania</h4>
+          ${items ? `<div class="mm-list">${items}</div>` : '<p class="mm-empty">Brak plików do pobrania.</p>'}
+        </div>
+      </div>`;
+  }
+
+  function openMod(id) {
+    const mod = modsData.mods.find(m => m.id === id);
+    if (!mod) return;
+    lastFocus = document.activeElement;
+    openModId = id;
+    renderModal(mod);
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+    const box = $('.mod-modal-box', modal);
+    if (box) box.scrollTop = 0;
+    $('.mod-modal-close', modal)?.focus();
+  }
+
+  function closeMod() {
+    if (!modal || !modal.classList.contains('open')) return;
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    openModId = null;
+    modalBody.innerHTML = '';
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
+    lastFocus = null;
+  }
+
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeMod(); });
+  $('.mod-modal-close', modal).addEventListener('click', closeMod);
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeMod(); lb.classList.remove('open'); }
+  });
+
+  const modsListEl = $('#modsList');
+  modsListEl?.addEventListener('click', (e) => {
+    const c = e.target.closest('.mod');
+    if (c) openMod(c.dataset.id);
+  });
+  modsListEl?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const c = e.target.closest('.mod');
+    if (c) { e.preventDefault(); openMod(c.dataset.id); }
+  });
 
   let validCats = new Set();
   const str = (v, max) => (typeof v === 'string' ? v : '').replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max);
@@ -1218,10 +1307,13 @@ setLang(currentLang); // ustawienie przy starcie
       author: str(m.author, 80),
       date: str(m.date, 10),
       description: str(m.description, 2000),
+      description_en: str(m.description_en, 2000),
       categories: (Array.isArray(m.categories) ? m.categories : []).map(c => str(c, 32)).filter(c => validCats.has(c)).slice(0, 6),
       media: src ? { type: mt.type === 'video' ? 'video' : 'image', src, alt: str(mt.alt, 160) } : null,
-      downloads: (Array.isArray(m.downloads) ? m.downloads : []).slice(0, 10)
-        .map(d => d && typeof d === 'object' ? { label: str(d.label, 80), url: safeUrl(d.url) } : null)
+      downloads: (Array.isArray(m.downloads) ? m.downloads : []).slice(0, 30)
+        .map(d => d && typeof d === 'object'
+          ? { label: str(d.label, 80), label_en: str(d.label_en, 80), url: safeUrl(d.url), date: str(d.date, 10), archive: d.archive === true }
+          : null)
         .filter(d => d && d.url)
     };
   };
@@ -1234,6 +1326,7 @@ setLang(currentLang); // ustawienie przy starcie
       if (!data || !Array.isArray(data.mods)) throw new Error('Invalid JSON');
       const cats = sanitizeCats(data.categories);
       validCats = new Set(cats.map(c => c.id));
+      cats.forEach(c => { catLabel[c.id] = c.label; });
       modsData = {
         categories: cats,
         mods: data.mods.slice(0, 500).map(sanitizeMod).filter(Boolean).map((m, i) => ({ ...m, _i: i }))
@@ -1243,13 +1336,210 @@ setLang(currentLang); // ustawienie przy starcie
     } catch (err) {
       console.error('mods.json:', err);
       const list = $('#modsList');
-      if (list) list.innerHTML = '<div class="mod-empty">Nie udało się wczytać listy modów (mods.json).</div>';
+      if (list) list.innerHTML = `<div class="mod-empty">${L('Nie udało się wczytać listy modów (mods.json).', 'Failed to load the mods list (mods.json).')}</div>`;
     }
   }
 
   $('#modSearch')?.addEventListener('input', () => applyModsFilter());
   $('#modSort')?.addEventListener('change', () => applyModsFilter());
   loadMods();
+
+  /* ---------- Tłumaczenie strony PL <-> EN ---------- */
+  const DICT = new Map(Object.entries({
+    // nawigacja i nagłówki
+    'MODY': 'MODS',
+    'Rozwój': 'Progress',
+    'Galeria': 'Gallery',
+    'Aktualności': 'News',
+    'Pobieranie': 'Downloads',
+    'Modyfikacje': 'Modifications',
+    'Postęp prac': 'Work progress',
+    'Screenshoty': 'Screenshots',
+    'Zespół': 'Team',
+    'Archiwum': 'Archive',
+    'O mieście': 'About the city',
+    // strona główna
+    'Najnowsze wpisy i informacje o postępach projektu.': 'Latest posts and information about the project\'s progress.',
+    'Linia 151 Projekt Lublin 4.0 odcinek Węglin - Wojciechowska': 'Line 151 Projekt Lublin 4.0, Węglin - Wojciechowska section',
+    'Poradnik obiektów Blender - OMSI2': 'Blender - OMSI2 objects tutorial',
+    'Postanowiliśmy przetestować nowy projekt OpenOmsi na mapie Lublina, wyniki są bardzo ciekawe. Mimo, że teren wizualnie może wyglądać identycznie jak na poprzednim filmie to prace nadal trwają. Na Kraśnickiej zostały juz głównie minimalne poprawki i ruch/kostki AI, natomiast ulica Kunickiego zaszła już za skrzyżowanie Kunickiego i Zemborzyckiej (same spliny na ten moment). Niestety rąk do pomocy jest bardzo mało (a właściwie w ogóle ich nie ma) dlatego projekt długo się ciągnie, chętnych do udzielenia jakiejkolwiek pomocy prosimy o kontakt przez "ticket" na serwerze Discord':
+      'We decided to test the new OpenOmsi project on the Lublin map, and the results are very interesting. Even though the area may look identical to the previous video visually, work is still in progress. On Kraśnicka there are mostly only minor fixes and AI traffic/cubes left, while Kunickiego street has already gone past the Kunickiego and Zemborzycka intersection (splines only for now). Unfortunately, there are very few hands to help (in fact, none at all), which is why the project drags on. If you would like to offer any help, please contact us via a "ticket" on the Discord server',
+    'Pierwszy przejazd po skończonym odcinku 151 Węglin - Wojciechowska. Wszystkie linki w komentarzu pod filmem.': 'The first ride along the finished 151 Węglin - Wojciechowska section. All links are in the comment under the video.',
+    'Prosty poradnik tworzenia obiektów dedykowanych w Blenderze dla OMSI2. Wszystkie linki w komentarzu pod filmem.': 'A simple tutorial on creating dedicated objects in Blender for OMSI2. All links are in the comment under the video.',
+    'Wesprzyj twórców': 'Support the creators',
+    // download
+    'Pobierz najnowszą wersję mapy i dodatków.': 'Download the latest version of the map and add-ons.',
+    'Mapa Projekt Lublin': 'Projekt Lublin map',
+    'Po prostu pobierz.': 'Just download it.',
+    'Pobierz': 'Download',
+    'Opis pliku do pobrania.': 'Description of the file to download.',
+    'Poprzednie wersje mapy.': 'Previous versions of the map.',
+    '· dodano nową linię – 156': '· added a new line – 156',
+    '· zaktualizowano trasę linii 55': '· updated the route of line 55',
+    '· zaktualizowano otoczenie, stan na 2017/2018 rok.': '· updated the surroundings, state as of 2017/2018.',
+    '· Dodano linię 55': '· Added line 55',
+    // mody
+    'Modyfikacje stworzone przez społeczność. Szukaj, filtruj i sortuj.': 'Community-made modifications. Search, filter and sort.',
+    'Szukaj po nazwie, autorze, opisie…': 'Search by name, author, description…',
+    'Sortuj:': 'Sort:',
+    'Najnowsze': 'Newest',
+    'Najstarsze': 'Oldest',
+    'Nazwa A–Z': 'Name A–Z',
+    'Nazwa Z–A': 'Name Z–A',
+    'Autor A–Z': 'Author A–Z',
+    'Malowanie': 'Livery',
+    'Pojazd': 'Vehicle',
+    'Blender / Narzędzia': 'Blender / Tools',
+    'Sieć trolejbusowa': 'Trolleybus network',
+    'AI / HOF': 'AI / HOF',
+    'Inne': 'Other',
+    'Brak podglądu': 'No preview',
+    'Wersje do pobrania': 'Available versions',
+    'Archiwalna': 'Archived',
+    'Najnowsza': 'Latest',
+    'Brak plików do pobrania.': 'No files to download.',
+    'Aktualna wersja (Google Drive)': 'Current version (Google Drive)',
+    'Aktualna wersja': 'Current version',
+    'Aktualna paczka (MEGA)': 'Current pack (MEGA)',
+    'Pobierz ze strony autora': 'Download from the author\'s website',
+    'Wersja 1.0r BETA': 'Version 1.0r BETA',
+    // rozwój
+    'Linia 151': 'Line 151',
+    'Postęp ukończenia': 'Completion progress',
+    'Zrobione:': 'Done:',
+    'Do zrobienia:': 'To do:',
+    'Ukończony odcinek': 'Completed section',
+    'Odcinek do renowacji': 'Section to be renovated',
+    'Odcinek z utworzonymi ulicami': 'Section with streets created',
+    'Zrobione': 'Done',
+    'Do zrobienia': 'To do',
+    'Wykonanie Ulic na Al.Kraśnickiej': 'Streets on Al. Kraśnicka completed',
+    'Wykonanie wszystkich obiektów na Al.Kraśnickiej': 'All objects on Al. Kraśnicka completed',
+    'Ulice na odcinku Targi-Głuska': 'Streets on the Targi-Głuska section',
+    'Ulice na odcinku Głuska-Abramowice': 'Streets on the Głuska-Abramowice section',
+    'Wykonanie Obiektów na odcinku Kunickiego-Abramowice': 'Objects on the Kunickiego-Abramowice section',
+    'Modernizacja AL.Racławickich': 'Modernization of Al. Racławickie',
+    // galeria / info
+    'Szpital Wojewódzki': 'Provincial Hospital',
+    'Główny twórca Projektu Lublin': 'Lead creator of Projekt Lublin',
+    'Edytor, Blender': 'Editor, Blender',
+    'Edytor, Blender, PR': 'Editor, Blender, PR',
+    'Lublin to największe miasto we wschodniej Polsce i stolica województwa lubelskiego. Położony nad Bystrzycą, słynie z malowniczego Starego Miasta, Zamku Lubelskiego z Kaplicą Trójcy Świętej oraz Bramy Krakowskiej. To ważny ośrodek akademicki z kilkoma uczelniami i dziesiątkami tysięcy studentów. Lublin ma jedną z największych sieci trolejbusowych w Polsce, a komunikację miejską obsługuje ZTM Lublin.':
+      'Lublin is the largest city in eastern Poland and the capital of Lublin Voivodeship. Located on the Bystrzyca river, it is famous for its picturesque Old Town, the Lublin Castle with the Chapel of the Holy Trinity, and the Kraków Gate. It is an important academic center with several universities and tens of thousands of students. Lublin has one of the largest trolleybus networks in Poland, and public transport is operated by ZTM Lublin.',
+    'mieszkańców (koniec 2025)': 'residents (end of 2025)',
+    'powierzchnia': 'area',
+    'prawa miejskie': 'city rights',
+    'województwo': 'voivodeship',
+    'lubelskie': 'Lublin Voivodeship',
+    // atrybuty (alt, aria-label, title)
+    'Metaliczne logo Projekt Lublin': 'Metallic Projekt Lublin logo',
+    'Miniaturka wpisu': 'Post thumbnail',
+    'Przebieg trasy linii 151 od Węglina do Abramowic': 'Route of line 151 from Węglin to Abramowice',
+    'Awatar 1': 'Avatar 1',
+    'Awatar 2': 'Avatar 2',
+    'Mapa Lublina': 'Map of Lublin',
+    'Zmień motyw': 'Change theme',
+    'Zamknij': 'Close',
+    'Poprzednia': 'Previous',
+    'Następna': 'Next'
+  }));
+  const PATTERNS = [
+    [/^Wersja: /, 'Version: '],
+    [/^Autor: /, 'Author: '],
+    [/^Data wydania /, 'Release date '],
+    [/^Zdjęcie (\d+)$/, 'Photo $1']
+  ];
+  const TITLE_PL = document.title;
+  const TITLE_EN = 'Projekt Lublin – Lublin map for OMSI 2 | Line 151, mods, download';
+  const ATTRS = ['placeholder', 'aria-label', 'alt', 'title'];
+  const origText = new WeakMap();
+  const origAttr = new WeakMap();
+
+  function trStr(s) {
+    const core = s.trim().replace(/\s+/g, ' ');
+    if (!core) return s;
+    const lead = s.match(/^\s*/)[0], trail = s.match(/\s*$/)[0];
+    if (DICT.has(core)) return lead + DICT.get(core) + trail;
+    for (const [re, rep] of PATTERNS) {
+      if (re.test(core)) return lead + core.replace(re, rep) + trail;
+    }
+    return s;
+  }
+
+  function applyText(n) {
+    const p = n.parentNode;
+    if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') return;
+    if (currentLang === 'en') {
+      const base = origText.has(n) ? origText.get(n) : n.nodeValue;
+      const out = trStr(base);
+      if (out !== base) { origText.set(n, base); if (n.nodeValue !== out) n.nodeValue = out; }
+    } else if (origText.has(n)) {
+      n.nodeValue = origText.get(n);
+      origText.delete(n);
+    }
+  }
+
+  function applyAttrs(el) {
+    for (const a of ATTRS) {
+      if (!el.hasAttribute(a)) continue;
+      let store = origAttr.get(el);
+      if (currentLang === 'en') {
+        const base = (store && a in store) ? store[a] : el.getAttribute(a);
+        const out = trStr(base);
+        if (out !== base) {
+          if (!store) { store = {}; origAttr.set(el, store); }
+          store[a] = base;
+          el.setAttribute(a, out);
+        }
+      } else if (store && a in store) {
+        el.setAttribute(a, store[a]);
+        delete store[a];
+      }
+    }
+  }
+
+  function translateTree(rootNode) {
+    if (!rootNode) return;
+    if (rootNode.nodeType === 3) { applyText(rootNode); return; }
+    if (rootNode.nodeType !== 1) return;
+    applyAttrs(rootNode);
+    const tw = document.createTreeWalker(rootNode, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+    let n;
+    while ((n = tw.nextNode())) {
+      if (n.nodeType === 3) applyText(n); else applyAttrs(n);
+    }
+  }
+
+  // tłumaczy treści doklejane dynamicznie (lista modów, filtry, okno modala, paginacja)
+  new MutationObserver((muts) => {
+    if (currentLang !== 'en') return;
+    muts.forEach(m => m.addedNodes.forEach(translateTree));
+  }).observe(document.body, { childList: true, subtree: true });
+
+  const langBtn = $('#langBtn');
+  const langLabel = $('#langLabel');
+
+  function setLang(lang) {
+    currentLang = lang === 'en' ? 'en' : 'pl';
+    langLabel.textContent = currentLang === 'pl' ? 'EN' : 'PL';
+    document.documentElement.lang = currentLang;
+    document.title = currentLang === 'en' ? TITLE_EN : TITLE_PL;
+    translateTree(document.body);
+    if (modsData.mods.length) {
+      renderModsPage();
+      if (openModId) {
+        const mod = modsData.mods.find(m => m.id === openModId);
+        if (mod) renderModal(mod);
+      }
+    }
+    try { localStorage.setItem('pl-lang', currentLang); } catch (e) {}
+  }
+
+  langBtn.addEventListener('click', () => setLang(currentLang === 'pl' ? 'en' : 'pl'));
+
+  let startLang = 'pl';
+  try { const s = localStorage.getItem('pl-lang'); if (s === 'en' || s === 'pl') startLang = s; } catch (e) {}
+  setLang(startLang);
 
   route();
 })();
