@@ -228,14 +228,16 @@ a.post{display:block;color:inherit;cursor:pointer}
 .mod h3{font-size:1.4rem;letter-spacing:-.01em}
 .mod p{color:var(--muted)}
 .mod .row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
-.mod .tags,.mm-body .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.mod .tag-chip,.mm-body .tag-chip{
+.mod .tags,.mm-head .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mod .tag-chip,.mm-head .tag-chip,.mm-ver .tag-chip{
   font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
   padding:4px 9px;border-radius:7px;border:1px solid var(--line-2);color:var(--muted);background:var(--bg);
 }
-.mod .date-meta,.mm-body .date-meta{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}
+.mm-ver .tag-chip.new{color:var(--text);border-color:var(--accent)}
+.mod .date-meta,.mm-ver .date-meta{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}
 .mod .mod-open{padding:10px 16px}
 
+/* ---------- Okno (modal) moda z historią wersji ---------- */
 .mod-modal{
   position:fixed;inset:0;z-index:120;display:none;place-items:center;padding:24px;
   background:rgba(0,0,0,.55);
@@ -243,26 +245,41 @@ a.post{display:block;color:inherit;cursor:pointer}
 }
 .mod-modal.open{display:grid;animation:ovl .25s var(--ease)}
 .mod-modal-box{
-  position:relative;width:100%;max-width:560px;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);
-  overflow-y:auto;box-shadow:0 20px 70px rgba(0,0,0,.6);animation:fade .3s var(--ease);
+  position:relative;width:100%;max-width:640px;
+  max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 20px 70px rgba(0,0,0,.6);animation:fade .3s var(--ease);
 }
+.mod-modal-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .mod-modal-close{position:absolute;top:12px;right:12px;z-index:3;background:rgba(0,0,0,.6);color:#fff;border-color:#444}
 .mod-modal-close:hover{background:rgba(0,0,0,.85)}
 .mod-modal .media{aspect-ratio:16/9;min-height:0}
-.mm-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px}
-.mm-body h3{font-size:1.5rem;letter-spacing:-.01em}
-.mm-body p{color:var(--muted);font-size:.95rem}
-.mm-versions{margin-top:8px}
-.mm-versions h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+
+.mm-content{padding:22px 24px 26px;display:flex;flex-direction:column;gap:18px}
+.mm-head{display:flex;flex-direction:column;gap:8px;padding-right:44px}
+.mm-head h3{font-size:1.5rem;letter-spacing:-.01em}
+.mm-head .meta{font-size:.88rem}
+.mm-sep{
+  display:flex;align-items:center;gap:12px;margin-top:6px;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.mm-sep::after{content:"";flex:1;height:1px;background:var(--line)}
+.mm-ver{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mm-ver.latest{border-color:var(--line-2)}
+.mm-ver-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px}
+.mm-ver-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mm-ver-top h4{font-size:1.2rem;letter-spacing:-.01em}
+.mm-ver p{color:var(--muted);font-size:.95rem}
+.mm-files{margin-top:6px}
+.mm-label{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .mm-list{display:flex;flex-direction:column;gap:8px}
 .mm-item{
   display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
-  background:var(--bg);transition:border-color .2s,background .2s,transform .2s var(--ease);
+  background:var(--card);transition:border-color .2s,background .2s,transform .2s var(--ease);
 }
 .mm-item:hover{border-color:var(--line-2);background:var(--bg-2);transform:translateY(-1px)}
 .mm-item .icon{width:18px;height:18px;color:var(--muted)}
 .mm-item .lbl{flex:1;min-width:0;font-size:.93rem;font-weight:500;word-break:break-word}
-.mm-item .sub{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
 .mm-empty{color:var(--muted);font-size:.9rem}
 body.modal-open{overflow:hidden}
 
@@ -484,7 +501,8 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   .mod .body,.about,.progress-card{padding:20px}
   .mod-modal{padding:12px}
   .mod-modal-box{max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}
-  .mm-body{padding:18px 18px 20px}
+  .mm-content{padding:16px 16px 20px}
+  .mm-ver-body{padding:16px}
 }
 @media (max-width:380px){
   .logo{font-size:1rem}
@@ -493,20 +511,6 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
-}
-  /* === Wersje moda w oknie: dopisz na KOŃCU <style>, tuż przed </style> === */
-.mod-modal-box{overflow:hidden;max-width:720px}
-#modModalBody{overflow-y:auto;overscroll-behavior:contain;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px)}
-.mm-ver + .mm-ver{border-top:1px solid var(--line)}
-.mm-sep{position:sticky;top:0;z-index:2;padding:14px 24px;background:var(--bg-2);border-block:1px solid var(--line);font-family:var(--display);font-weight:600}
-.mm-body h3 .tag-chip{vertical-align:middle;margin-left:6px;font-family:Inter,system-ui,sans-serif}
-.mm-new{color:var(--text)!important;border-color:var(--text)!important}
-.mm-more{align-self:flex-start;margin-top:6px}
-.mm-more .icon{transform:rotate(90deg)}
-.mm-item .tag-chip{font-size:.72rem;font-weight:600;padding:4px 9px;border-radius:7px;border:1px solid var(--line-2);color:var(--muted)}
-@media (max-width:640px){
-  #modModalBody{max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}
-  .mm-sep{padding:12px 18px}
 }
 </style>
 </head>
@@ -921,7 +925,7 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
 <div class="mod-modal" id="modModal" role="dialog" aria-modal="true" aria-labelledby="modModalTitle">
   <div class="card mod-modal-box">
     <button type="button" class="icon-btn mod-modal-close" aria-label="Zamknij"><svg class="icon"><use href="#i-x"/></svg></button>
-    <div id="modModalBody"></div>
+    <div id="modModalBody" class="mod-modal-scroll"></div>
   </div>
 </div>
 
@@ -1068,6 +1072,10 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   addEventListener('mouseleave', () => { mouse.x = mouse.y = -999; });
   resize(); draw();
 
+  /* =====================================================================
+     MODY – lista, wyszukiwarka, filtry, okno z historią wersji
+     Dane: mods.json  (każdy mod ma tablicę "versions")
+     ===================================================================== */
   const MODS_PER_PAGE = 4;
   let modsData = { categories: [], mods: [] };
   let modsFiltered = [];
@@ -1120,11 +1128,18 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     return `<img loading="lazy" decoding="async" src="${esc(m.src)}" alt="${esc(m.alt || '')}" style="width:100%;height:100%;object-fit:cover;display:block">`;
   }
 
-  const modDesc = (m) => (currentLang === 'en' && m.description_en) ? m.description_en : m.description;
+  const verDesc = (v) => (currentLang === 'en' && v.description_en) ? v.description_en : v.description;
   const dlLabel = (d) => (currentLang === 'en' && d.label_en) ? d.label_en : (d.label || L('Pobierz', 'Download'));
   const tagsHtml = (mod) => (mod.categories || []).map(id =>
     `<span class="tag-chip">${esc(catLabel[id] || id)}</span>`
   ).join('');
+
+  const plVersion = (n) => {
+    if (n === 1) return 'wersja';
+    const a = n % 10, b = n % 100;
+    return (a >= 2 && a <= 4 && !(b >= 12 && b <= 14)) ? 'wersje' : 'wersji';
+  };
+  const verCount = (n) => L(`${n} ${plVersion(n)}`, `${n} version${n === 1 ? '' : 's'}`);
 
   function renderModsPage() {
     const list = $('#modsList');
@@ -1151,14 +1166,19 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
       return;
     }
 
+    // karta na liście = NAJNOWSZA wersja moda
     list.innerHTML = slice.map(mod => {
+      const v = mod.versions[0];
+      const n = mod.versions.length;
+      const verLabel = v.version ? ` · ${esc(v.version)}` : '';
+      const countChip = n > 1 ? `<span class="tag-chip">${esc(verCount(n))}</span>` : '';
       return `<article class="card mod" data-id="${esc(mod.id)}" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="media">${mediaHtml(mod.media)}</div>
+        <div class="media">${mediaHtml(v.media)}</div>
         <div class="body">
-          <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(mod.date))}</div>
+          <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(v.date))}${verLabel}</div>
           <h3>${esc(mod.title)}</h3>
-          <p>${esc(modDesc(mod))}</p>
-          <div class="tags">${tagsHtml(mod)}</div>
+          <p>${esc(verDesc(v))}</p>
+          <div class="tags">${tagsHtml(mod)}${countChip}</div>
           <div class="row">
             <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: ${esc(mod.author)}</div>
             <span class="btn ghost mod-open"><svg class="icon"><use href="#i-download"/></svg>Pobierz</span>
@@ -1199,8 +1219,11 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
         if (!checked.some(c => cats.includes(c))) return false;
       }
       if (!q) return true;
-      const hay = [m.title, m.author, m.description, m.description_en, ...(m.categories || []).map(c => catLabel[c] || c)]
-        .join(' ').toLowerCase();
+      const hay = [
+        m.title, m.author,
+        ...m.versions.flatMap(v => [v.version, v.description, v.description_en]),
+        ...(m.categories || []).map(c => catLabel[c] || c)
+      ].join(' ').toLowerCase();
       return hay.includes(q);
     });
 
@@ -1222,47 +1245,50 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     renderModsPage();
   }
 
-  /* ---------- Okno (modal) modyfikacji ---------- */
+  /* ---------- Okno (modal) moda: najnowsza wersja na górze, niżej starsze ---------- */
   const modal = $('#modModal');
   const modalBody = $('#modModalBody');
   let openModId = null, lastFocus = null;
 
-  // Kolejność: najpierw aktualne wersje, potem archiwalne (archive:true);
-  // w każdej grupie od najnowszej do najstarszej wg "date", a bez daty wg kolejności w JSON.
-  function sortedDownloads(mod) {
-    const all = (mod.downloads || []).map((d, i) => ({ ...d, _i: i }));
-    const cmp = (a, b) => (toTime(b.date) - toTime(a.date)) || (a._i - b._i);
-    const cur = all.filter(d => !d.archive).sort(cmp);
-    const arc = all.filter(d => d.archive).sort(cmp);
-    return [...cur, ...arc];
+  // jeden blok wersji: zdjęcie, nazwa wersji, data, opis, pliki do pobrania
+  function versionBlock(v, i, total) {
+    const dls = v.downloads.map(d => `<a class="mm-item" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon"><use href="#i-download"/></svg>
+        <span class="lbl">${esc(dlLabel(d))}</span>
+      </a>`).join('');
+    const badge = i === 0
+      ? (total > 1 ? '<span class="tag-chip new">Najnowsza</span>' : '')
+      : '<span class="tag-chip">Archiwalna</span>';
+    return `<section class="mm-ver${i === 0 ? ' latest' : ''}">
+      <div class="media">${mediaHtml(v.media)}</div>
+      <div class="mm-ver-body">
+        <div class="mm-ver-top">
+          ${v.version ? `<h4>${esc(v.version)}</h4>` : ''}
+          ${badge}
+        </div>
+        <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(v.date))}</div>
+        <p>${esc(verDesc(v))}</p>
+        <div class="mm-files">
+          <div class="mm-label">Pliki do pobrania</div>
+          ${dls ? `<div class="mm-list">${dls}</div>` : '<p class="mm-empty">Brak plików do pobrania.</p>'}
+        </div>
+      </div>
+    </section>`;
   }
 
   function renderModal(mod) {
-    const dls = sortedDownloads(mod);
-    const items = dls.map((d, i) => {
-      const badge = d.archive
-        ? '<span class="tag-chip">Archiwalna</span>'
-        : (i === 0 && dls.length > 1 ? '<span class="tag-chip">Najnowsza</span>' : '');
-      const sub = d.date ? `<span class="sub">${esc(fmtDate(d.date))}</span>` : '';
-      return `<a class="mm-item" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
-        <svg class="icon"><use href="#i-download"/></svg>
-        <span class="lbl">${esc(dlLabel(d))}${sub}</span>
-        ${badge}
-      </a>`;
-    }).join('');
-
-    modalBody.innerHTML = `<div class="media">${mediaHtml(mod.media)}</div>
-      <div class="mm-body">
-        <div class="date-meta"><svg class="icon"><use href="#i-cal"/></svg>${esc(fmtDate(mod.date))}</div>
+    const n = mod.versions.length;
+    const latest = versionBlock(mod.versions[0], 0, n);
+    const older = mod.versions.slice(1).map((v, k) => versionBlock(v, k + 1, n)).join('');
+    modalBody.innerHTML = `<div class="mm-content">
+      <div class="mm-head">
         <h3 id="modModalTitle">${esc(mod.title)}</h3>
         <div class="meta"><svg class="icon"><use href="#i-user"/></svg>Autor: ${esc(mod.author)}</div>
         <div class="tags">${tagsHtml(mod)}</div>
-        <p>${esc(modDesc(mod))}</p>
-        <div class="mm-versions">
-          <h4>Wersje do pobrania</h4>
-          ${items ? `<div class="mm-list">${items}</div>` : '<p class="mm-empty">Brak plików do pobrania.</p>'}
-        </div>
-      </div>`;
+      </div>
+      ${latest}
+      ${n > 1 ? `<h4 class="mm-sep">Poprzednie wersje</h4>${older}` : ''}
+    </div>`;
   }
 
   function openMod(id) {
@@ -1273,8 +1299,7 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     renderModal(mod);
     modal.classList.add('open');
     document.body.classList.add('modal-open');
-    const box = $('.mod-modal-box', modal);
-    if (box) box.scrollTop = 0;
+    modalBody.scrollTop = 0;
     $('.mod-modal-close', modal)?.focus();
   }
 
@@ -1305,6 +1330,7 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     if (c) { e.preventDefault(); openMod(c.dataset.id); }
   });
 
+  /* ---------- Wczytywanie i czyszczenie danych z mods.json ---------- */
   let validCats = new Set();
   const str = (v, max) => (typeof v === 'string' ? v : '').replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max);
   const safeUrl = (u) => {
@@ -1319,25 +1345,64 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   const sanitizeCats = (arr) => (Array.isArray(arr) ? arr : []).slice(0, 30)
     .map(c => c && typeof c === 'object' ? { id: str(c.id, 32), label: str(c.label, 60) } : null)
     .filter(c => c && /^[a-z0-9_-]{1,32}$/i.test(c.id) && c.label);
+
+  const sanitizeMedia = (mt) => {
+    if (!mt || typeof mt !== 'object') return null;
+    const src = safeMedia(mt.src);
+    return src ? { type: mt.type === 'video' ? 'video' : 'image', src, alt: str(mt.alt, 160) } : null;
+  };
+  const sanitizeDl = (d) => d && typeof d === 'object'
+    ? { label: str(d.label, 80), label_en: str(d.label_en, 80), url: safeUrl(d.url), date: str(d.date, 10) }
+    : null;
+  const sanitizeVersion = (v, i) => {
+    if (!v || typeof v !== 'object') return null;
+    const downloads = (Array.isArray(v.downloads) ? v.downloads : []).slice(0, 30)
+      .map(sanitizeDl).filter(d => d && d.url);
+    return {
+      _i: i,
+      version: str(v.version, 60),
+      date: str(v.date, 10) || downloads.map(d => d.date).find(Boolean) || '',
+      description: str(v.description, 2000),
+      description_en: str(v.description_en, 2000),
+      media: sanitizeMedia(v.media),
+      downloads
+    };
+  };
+
   const sanitizeMod = (m) => {
     if (!m || typeof m !== 'object') return null;
     const id = str(m.id, 80), title = str(m.title, 120);
     if (!id || !title) return null;
-    const mt = m.media && typeof m.media === 'object' ? m.media : null;
-    const src = mt ? safeMedia(mt.src) : '';
+
+    // wartości zapasowe z poziomu moda (gdy wersja nie ma własnego zdjęcia/opisu/daty)
+    const baseMedia = sanitizeMedia(m.media);
+    const baseDate = str(m.date, 10);
+    const baseDesc = str(m.description, 2000);
+    const baseDescEn = str(m.description_en, 2000);
+
+    // nowy format: "versions": [...]  |  stary format (jedna wersja na poziomie moda) nadal działa
+    const raw = (Array.isArray(m.versions) && m.versions.length)
+      ? m.versions.slice(0, 50)
+      : [{ version: m.version, date: m.date, description: m.description, description_en: m.description_en, media: m.media, downloads: m.downloads }];
+
+    let versions = raw.map(sanitizeVersion).filter(Boolean).map(v => ({
+      ...v,
+      date: v.date || baseDate,
+      description: v.description || baseDesc,
+      description_en: v.description_en || baseDescEn,
+      media: v.media || baseMedia
+    }));
+    if (!versions.length) return null;
+
+    // najnowsza wersja pierwsza; przy tej samej dacie decyduje kolejność w JSON
+    versions.sort((a, b) => (toTime(b.date) - toTime(a.date)) || (a._i - b._i));
+
     return {
       id, title,
       author: str(m.author, 80),
-      date: str(m.date, 10),
-      description: str(m.description, 2000),
-      description_en: str(m.description_en, 2000),
+      date: versions[0].date,
       categories: (Array.isArray(m.categories) ? m.categories : []).map(c => str(c, 32)).filter(c => validCats.has(c)).slice(0, 6),
-      media: src ? { type: mt.type === 'video' ? 'video' : 'image', src, alt: str(mt.alt, 160) } : null,
-      downloads: (Array.isArray(m.downloads) ? m.downloads : []).slice(0, 30)
-        .map(d => d && typeof d === 'object'
-          ? { label: str(d.label, 80), label_en: str(d.label_en, 80), url: safeUrl(d.url), date: str(d.date, 10), archive: d.archive === true }
-          : null)
-        .filter(d => d && d.url)
+      versions
     };
   };
 
@@ -1418,6 +1483,8 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
     'Inne': 'Other',
     'Brak podglądu': 'No preview',
     'Wersje do pobrania': 'Available versions',
+    'Pliki do pobrania': 'Files to download',
+    'Poprzednie wersje': 'Previous versions',
     'Archiwalna': 'Archived',
     'Najnowsza': 'Latest',
     'Brak plików do pobrania.': 'No files to download.',
@@ -1552,7 +1619,11 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
       renderModsPage();
       if (openModId) {
         const mod = modsData.mods.find(m => m.id === openModId);
-        if (mod) renderModal(mod);
+        if (mod) {
+          const st = modalBody.scrollTop;
+          renderModal(mod);
+          modalBody.scrollTop = st;
+        }
       }
     }
     try { localStorage.setItem('pl-lang', currentLang); } catch (e) {}
