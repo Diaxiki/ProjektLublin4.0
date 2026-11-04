@@ -26,17 +26,17 @@
       ]
     },
     {
-      "id": "solaris-trolino-12mb-iii",
-      "title": "Solaris Trolino 12MB III GEN",
+      "id": "solaris-trolino-12-iii",
+      "title": "Solaris Trolino 12 III GEN",
       "author": "Solarisek_3813",
       "categories": ["pojazd"],
       "versions": [
         {
-          "version": "BETA 1",
+          "version": "1.0",
           "date": "2026-11-02",
           "description": "Trolejbusy III generacji BETA.",
           "description_en": "Third-generation trolleybuses, BETA.",
-          "media": { "type": "image", "src": "image/image1.png", "alt": "Solaris Trolino 12MB III GEN – BETA 1" },
+          "media": { "type": "image", "src": "image/image1.png", "alt": "Solaris Trolino 12 III GEN – BETA 1" },
           "downloads": [
             { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing" }
           ]
