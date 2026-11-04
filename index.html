@@ -226,7 +226,7 @@ a.post{display:block;color:inherit;cursor:pointer}
 .mod .media{aspect-ratio:auto;min-height:220px;height:100%}
 .mod .body{padding:24px 26px;display:flex;flex-direction:column;gap:10px}
 .mod h3{font-size:1.4rem;letter-spacing:-.01em}
-.mod p{color:var(--muted)}
+.mod p{color:var(--muted);white-space:pre-line}
 .mod .row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
 .mod .tags,.mm-head .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .mod .tag-chip,.mm-head .tag-chip,.mm-ver .tag-chip{
@@ -269,7 +269,7 @@ a.post{display:block;color:inherit;cursor:pointer}
 .mm-ver-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px}
 .mm-ver-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .mm-ver-top h4{font-size:1.2rem;letter-spacing:-.01em}
-.mm-ver p{color:var(--muted);font-size:.95rem}
+.mm-ver p{color:var(--muted);font-size:.95rem;white-space:pre-line}
 .mm-files{margin-top:6px}
 .mm-label{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .mm-list{display:flex;flex-direction:column;gap:8px}
@@ -1331,8 +1331,7 @@ footer{border-top:1px solid var(--line);background:var(--bg)}
   });
 
   /* ---------- Wczytywanie i czyszczenie danych z mods.json ---------- */
-  let validCats = new Set();
-  const str = (v, max) => (typeof v === 'string' ? v : '').replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max);
+  let validCats = new Set();const str = (v, max) => (typeof v === 'string' ? v : '').replace(/[\u0000-\u0009\u000b-\u001f\u007f]/g, ' ').trim().slice(0, max);
   const safeUrl = (u) => {
     try { const x = new URL(String(u), location.href); return x.protocol === 'https:' ? x.href : ''; }
     catch (e) { return ''; }
