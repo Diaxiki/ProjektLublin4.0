@@ -60,6 +60,34 @@
           "downloads": [
             { "label": "Aktualna wersja", "label_en": "Current version", "url": "https://docs.google.com/uc?export=download&id=1lz8CTv5v6vP9B9DKi6xl839HoJsEwF2w" }
           ]
+        }, {
+          "version": "3.1.3",
+          "date": "2026-11-04",
+          "description": "obsluga wielu kanalow systemu sterowania zwrotnicami
+poprawki generalne dzwiekow i mozliwosc ustawiania swoich dzwiekow zwiazanych z dzialaniem trolejbusow w kazdym pojezdzie
+wyciszenie tego irytującego szumienia od kontaktu z siecią
+zmniejszenie natezenia iskrzenia
+usuniecie zoltego elementu i swiatelka nad zwrotnicami
+dzwiek mechanizmu zmiany kierunku na zwrotnicy
+
+a tu kilka zdjec ukazujacych nastepna wersje sieci na mapie na testowej wersji openomsi, nowe wyswietlacze zgodne z typem i kolorystką w rzeczywistosci:
+
+tu jest jeszcze filmik jak ktos nie widzial: https://streamable.com/ecaf10 
+",
+          "description_en": "support for multiple channels of the turnout control system  
+general sound fixes and the ability to set your own sounds related to trolleybus operations in each vehicle  
+muting that annoying buzzing from contact with the network  
+reducing the intensity of sparking  
+removal of the yellow element and the little light above the turnouts  
+sound of the direction-changing mechanism on the turnout  
+
+and here are a few photos showing the next version of the network on the map in the test version of OpenMMS, new displays matching the type and color scheme in real life:  
+
+here's also a little video that some people haven’t seen: https://streamable.com/ecaf10",
+          "media": { "type": "image", "src": "image/1.png", "alt": "Sieć trolejbusowa" },
+          "downloads": [
+            { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "Brak" }
+          ]
         }
       ]
     },
