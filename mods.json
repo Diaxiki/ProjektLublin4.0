@@ -9,6 +9,23 @@
   ],
   "mods": [
     {
+      "id": "man-lions-city-ng313-pks-zielona-gora",
+      "title": "MAN Lion's City NG313 - PKS Zielona Góra",
+      "author": "Yuki",
+      "categories": ["malowanie"],
+      "versions": [
+        {
+          "date": "2026-11-04",
+          "description": "Paczka 4 MANów Lion's city NG313 z PKS Zielona Góra (numery 6108-6111). Wrzucamy oczywiście do A23_3D",
+          "description_en": "Pack of 4 MAN Lion's City NG313 buses from PKS Zielona Góra (fleet numbers 6108-6111). To be placed in A23_3D",
+          "media": { "type": "image", "src": "image/Mod4.11.2026.png", "alt": "MAN Lion's City NG313 PKS Zielona Góra" },
+          "downloads": [
+            { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "https://drive.google.com/drive/folders/1bMS9OZC8Bt9FwEbnh6dXGnW2PmTzukgm?usp=sharing" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "solaris-trolino-12mb-iii",
       "title": "Solaris Trolino 12MB III GEN",
       "author": "Solarisek_3813",
