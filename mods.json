@@ -44,11 +44,15 @@
         {
           "version": "3.1.3",
           "date": "2026-11-04",
-          "description": "*Obsluga wielu kanalow systemu sterowania zwrotnicami.\n *Poprawki generalne dzwiekow i mozliwosc ustawiania swoich dzwiekow zwiazanych z dzialaniem trolejbusow w kazdym pojezdzie.\n *wyciszenie tego irytującego szumienia od kontaktu z siecią.\n *zmniejszenie natezenia iskrzenia. \n *usuniecie zoltego elementu i swiatelka nad zwrotnicami. \n *dzwiek mechanizmu zmiany kierunku na zwrotnicy. \n\na tu kilka zdjec ukazujacych nastepna wersje sieci na mapie na testowej wersji openomsi, nowe wyswietlacze zgodne z typem i kolorystką w rzeczywistosci:\n\ntu jest jeszcze filmik jak ktos nie widzial: https://streamable.com/ecaf10",
+          "description": "*Obsluga wielu kanalow systemu sterowania zwrotnicami.\n 
+          *Poprawki generalne dzwiekow i mozliwosc ustawiania swoich dzwiekow zwiazanych z dzialaniem trolejbusow w kazdym pojezdzie.
+          \n *wyciszenie tego irytującego szumienia od kontaktu z siecią.\n 
+          *zmniejszenie natezenia iskrzenia. \n *usuniecie zoltego elementu i swiatelka nad zwrotnicami. 
+          \n *dzwiek mechanizmu zmiany kierunku na zwrotnicy. \n\na tu kilka zdjec ukazujacych nastepna wersje sieci na mapie na testowej wersji openomsi, nowe wyswietlacze zgodne z typem i kolorystką w rzeczywistosci:\n\ntu jest jeszcze filmik jak ktos nie widzial: https://streamable.com/ecaf10",
           "description_en": "support for multiple channels of the turnout control system\ngeneral sound fixes and the ability to set your own sounds related to trolleybus operations in each vehicle\nmuting that annoying buzzing from contact with the network\nreducing the intensity of sparking\nremoval of the yellow element and the little light above the turnouts\nsound of the direction-changing mechanism on the turnout\n\nand here are a few photos showing the next version of the network on the map in the test version of OpenMMS, new displays matching the type and color scheme in real life:\n\nhere's also a little video that some people haven’t seen: https://streamable.com/ecaf10",
           "media": { "type": "image", "src": "image/1.png", "alt": "Sieć trolejbusowa" },
           "downloads": [
-            { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "Brak" }
+            { "label": "Brak linku. Akutalna wersja jest niżej", "label_en": "Current version (Google Drive)", "url": "Brak" }
           ]
         }
       ]
