@@ -48,7 +48,7 @@
           "description_en": "* Support for multiple channels of the turnout control system.\n* General sound fixes and the ability to set your own sounds related to trolleybus operations in each vehicle.\n* Muting that annoying buzzing from contact with the network.\n* Reducing the intensity of sparking.\n* Removal of the yellow element and the little light above the turnouts.\n* Sound of the direction-changing mechanism on the turnout.\n\nAnd here are a few photos showing the next version of the network on the map in the test version of OpenOMSI, new displays matching the type and color scheme in real life:\n\nHere's also a little video that some people haven’t seen: https://streamable.com/ecaf10",
           "media": { "type": "image", "src": "image/1.png", "alt": "Sieć trolejbusowa" },
           "downloads": [
-            { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "Brak" }
+            { "label": "Brak linku pobierz wersję poniżej.", "label_en": "No link, download the version below.", "url": "Brak" }
           ]
         }
       ]
