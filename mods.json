@@ -15,33 +15,13 @@
       "categories": ["pojazd"],
       "versions": [
         {
-          "version": "BETA 3",
+          "version": "BETA 1",
           "date": "2026-11-02",
           "description": "Trolejbusy III generacji BETA.",
           "description_en": "Third-generation trolleybuses, BETA.",
-          "media": { "type": "image", "src": "image/image1.png", "alt": "Solaris Trolino 12MB III GEN – BETA 3" },
-          "downloads": [
-            { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing" }
-          ]
-        },
-        {
-          "version": "BETA 2",
-          "date": "2026-10-20",
-          "description": "PRZYKŁAD – zastąp prawdziwym opisem zmian tej wersji, własnym zdjęciem i linkiem.",
-          "description_en": "EXAMPLE – replace with the real changelog, your own picture and link.",
-          "media": { "type": "image", "src": "image/image1.png", "alt": "Solaris Trolino 12MB III GEN – BETA 2" },
-          "downloads": [
-            { "label": "Wersja BETA 2 (Google Drive)", "label_en": "BETA 2 (Google Drive)", "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing" }
-          ]
-        },
-        {
-          "version": "BETA 1",
-          "date": "2026-10-05",
-          "description": "PRZYKŁAD – zastąp prawdziwym opisem zmian tej wersji, własnym zdjęciem i linkiem.",
-          "description_en": "EXAMPLE – replace with the real changelog, your own picture and link.",
           "media": { "type": "image", "src": "image/image1.png", "alt": "Solaris Trolino 12MB III GEN – BETA 1" },
           "downloads": [
-            { "label": "Wersja BETA 1 (Google Drive)", "label_en": "BETA 1 (Google Drive)", "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing" }
+            { "label": "Aktualna wersja (Google Drive)", "label_en": "Current version (Google Drive)", "url": "https://drive.google.com/file/d/1C0BJFkHtjs_7p8eHCb_iNBhxuuXBh4-k/view?usp=sharing" }
           ]
         }
       ]
