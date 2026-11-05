@@ -50,7 +50,7 @@
       "categories": ["siec"],
       "versions": [
         {
-          "date": "2025-11-01",
+          "date": "2026-11-01",
           "description": "Sieć trolejbusowa ze zwrotnicami, podwieszeniami i wskaźnikami LED poza zajezdnią. Poprawiony przebieg sieci i usunięte stare przewody z wybranych skrzyżowań. HOF-y, zapowiedzi i grupa AI MEGA korzystająca z Trollino 18.",
           "description_en": "Trolleybus network with switches, suspensions and LED indicators outside the depot. Corrected network routing and old wires removed from selected intersections. HOFs, announcements and the MEGA AI group using the Trollino 18.",
           "media": { "type": "video", "src": "image/F1HsbtP.mp4", "alt": "Sieć trolejbusowa" },
@@ -77,7 +77,7 @@
       "categories": ["malowanie"],
       "versions": [
         {
-          "date": "2025-11-01",
+          "date": "2026-11-01",
           "description": "Na stronie znajdują 3 różne malowania dla Lublina.",
           "description_en": "The page contains 3 different liveries for Lublin.",
           "media": { "type": "image", "src": "image/autosqn.png", "alt": "Malowanie AUTOSAN" },
@@ -95,7 +95,7 @@
       "versions": [
         {
           "version": "1.0r BETA",
-          "date": "2025-11-01",
+          "date": "2026-11-01",
           "description": "Po ponad 1,5 roku wychodzi nowa wtyczka do Blendera. Wtyczka została stworzona przeze mnie. Jako pierwszy użytkownik tej oto wtyczki zaleca się używać wersji Blendera 3.0+. Jest po prostu lepiej zoptymalizowana. Wtyczka jest w fazie BETA – błędy mogą się pojawić szczególnie przy funkcjach tools. Dodatek może importować pliki .o3d .cfg .sco tak samo przy eksporcie. W toolsach są funkcje szybkiego importu/eksportu oraz automatycznego bake (bake jest w fazie eksperymentalnej). Wtyczka jest zrobiona pod optymalizację i wygodę użytkownika.",
           "description_en": "After more than 1.5 years, a new Blender add-on is out. The add-on was created by me. As the first user of this add-on, it is recommended to use Blender 3.0+, as it is simply better optimized. The add-on is in BETA – bugs may appear, especially in the tools functions. The add-on can import .o3d, .cfg and .sco files, and likewise export them. The tools include quick import/export functions and automatic bake (bake is experimental). The add-on is built for optimization and user convenience.",
           "media": { "type": "image", "src": "image/mody.png", "alt": "Easyiomsi" },
@@ -112,7 +112,7 @@
       "categories": ["malowanie"],
       "versions": [
         {
-          "date": "2025-10-18",
+          "date": "2026-10-18",
           "description": "Kontynuacja paczki malowań do pierwszej, drugiej i części trzeciej transzy hybryd. (Wgrać do Texture/Rep FL/SU18_4D/Hybrid). Klucz: iK5x6aObME-YtpKXLyI3Fg",
           "description_en": "Continuation of the livery pack for the first, second and part of the third batch of hybrids. (Install into Texture/Rep FL/SU18_4D/Hybrid). Key: iK5x6aObME-YtpKXLyI3Fg",
           "media": { "type": "image", "src": "image/mody1.png", "alt": "Solaris Urbino 18 Hybrid" },
@@ -129,7 +129,7 @@
       "categories": ["malowanie"],
       "versions": [
         {
-          "date": "2025-10-17",
+          "date": "2026-10-17",
           "description": "Malowania Solaris Trollino 12 MB #3888-3891. Klucz: _Fj6HgSgYvbPO53vWZdllw",
           "description_en": "Liveries for Solaris Trollino 12 MB #3888-3891. Key: _Fj6HgSgYvbPO53vWZdllw",
           "media": { "type": "image", "src": "image/mody2.png", "alt": "Solaris Trollino 12 MB" },
@@ -146,7 +146,7 @@
       "categories": ["malowanie"],
       "versions": [
         {
-          "date": "2025-10-06",
+          "date": "2026-10-06",
           "description": "Malowania dla elektryków 12 m 4028-4032 (ostatnia tercja Solarisów 12 electric dla MPK Lublin, dostawa 2022). Posiadają pulpit z zegarami cyfrowymi. Malowania wzorowane na Radomskiej lakierni (wozy 4001-4006).",
           "description_en": "Liveries for the 12 m electric buses 4028-4032 (the last third of the Solaris 12 electric buses for MPK Lublin, delivered in 2022). They have a dashboard with digital gauges. Liveries modeled on the Radom paint shop (vehicles 4001-4006).",
           "media": { "type": "image", "src": "image/mody3.png", "alt": "Solaris Urbino 12 electric" },
