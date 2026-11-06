@@ -9,6 +9,24 @@
   ],
   "mods": [
     {
+      "id": "paczuszka-solarisow-trollino-18-iii-3932-3943",
+      "title": "Paczuszka Solarisów Trollino 18 III (3932-3943)",
+      "author": "Der Omnibussimulator 2",
+      "categories": ["malowanie"],
+      "versions": [
+        {
+          "version": "1.0",
+          "date": "2026-11-06",
+          "description": "No takie tam nom. (12 metrowych nie robię bo autor zrobił najnowszą wersje na jedną zabudowę i to taką która nie przypomina tej z 12mb + nie da sie tego pokolorować w cti. nie chce mi się w te bawić). Miłego korzystania, jakie kolwiek poprawki do malowań proszę kierować na mail ZDiTM'u, nie odpiszę. Szerokiej drogi! Krzyżyk na drogę. Klucz: xekdIBoNrzzAjvsVdfwW8g",
+          "description_en": "No takie tam nom. (12 metrowych nie robię bo autor zrobił najnowszą wersje na jedną zabudowę i to taką która nie przypomina tej z 12mb + nie da sie tego pokolorować w cti. nie chce mi się w te bawić). Enjoy, please send any livery corrections to ZDiTM's e-mail, I won't reply. Have a safe journey! Key: xekdIBoNrzzAjvsVdfwW8g",
+          "media": { "type": "image", "src": "image/Trolino18III.png", "alt": "Paczuszka Solarisów Trollino 18 III (3932-3943)" },
+          "downloads": [
+            { "label": "Aktualna paczka (MEGA)", "label_en": "Current pack (MEGA)", "url": "https://mega.nz/folder/EcwSlSQI" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "man-lions-city-ng313-pks-zielona-gora",
       "title": "MAN Lion's City NG313 - PKS Zielona Góra",
       "author": "Yuki",
